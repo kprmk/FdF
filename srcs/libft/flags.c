@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 14:30:27 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/20 23:16:45 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:25 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 char	*add_plus(char *str, char to_add)
 {

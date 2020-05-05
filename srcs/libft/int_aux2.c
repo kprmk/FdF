@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   int_aux2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:04:19 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/20 23:53:00 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:55 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 char	*create_str(long long int nbr, int *w_p)
 {

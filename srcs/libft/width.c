@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   width.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:10:55 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/17 13:12:32 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:47:38 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 char	*shorten_str(char *str, int precision)
 {

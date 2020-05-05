@@ -1,36 +1,36 @@
-NAME = libftprintf.a
+NAME = libft.a
 COMPILER = gcc
 FLAGS = -g -Wall -Wextra -Werror
-INCLUDE_FOLDERS := -I includes/ -I libft/includes/
+INCLUDE_FOLDERS := -I includes/
 SOURCES_FOLDER  := srcs/
 OBJECTS_FOLDER  := objs/
 vpath %.c srcs
-SOURCES :=	aux.c \
-			checks_rounding.c \
-			print_other.c \
-			create_and_fill_list.c \
-			ft_itoa_base.c \
-			list.c \
-			print_unsigned.c \
-			fill_fields.c \
-			ft_itoa_long.c \
-			print_csp.c \
-			width.c \
-			flags.c \
-			ft_printf.c \
-			print_int.c \
-			print_elem.c \
-			printf_float.c \
-			int_aux.c \
-			int_aux2.c \
-			uint_aux.c \
-			align.c \
-			floats.c \
-			long_arithm_char.c \
-			long_arithm_char_2.c \
-			long_arithm.c \
-			parse_for_floats.c \
-			inf_nan.c \
+SOURCES :=	libft/aux.c \
+			libft/checks_rounding.c \
+			libft/print_other.c \
+			libft/create_and_fill_list.c \
+			libft/ft_itoa_base.c \
+			libft/list.c \
+			libft/print_unsigned.c \
+			libft/fill_fields.c \
+			libft/ft_itoa_long.c \
+			libft/print_csp.c \
+			libft/width.c \
+			libft/flags.c \
+			libft/ft_printf.c \
+			libft/print_int.c \
+			libft/print_elem.c \
+			libft/printf_float.c \
+			libft/int_aux.c \
+			libft/int_aux2.c \
+			libft/uint_aux.c \
+			libft/align.c \
+			libft/floats.c \
+			libft/long_arithm_char.c \
+			libft/long_arithm_char_2.c \
+			libft/long_arithm.c \
+			libft/parse_for_floats.c \
+			libft/inf_nan.c \
 			libft/ft_atoi.c \
 			libft/ft_strmap.c \
 			libft/ft_bzero.c \
@@ -98,6 +98,7 @@ SOURCES :=	aux.c \
 			libft/ft_lstnew_fd.c \
 			libft/ft_strjoin_s.c \
 			libft/get_next_line.c \
+			main.c \
 
 
 OBJECTS := $(SOURCES:.c=.o)
@@ -105,10 +106,13 @@ OBJECTS := $(SOURCES:.c=.o)
 OBJECTS := $(addprefix $(OBJECTS_FOLDER), $(OBJECTS))
 SOURCES := $(addprefix $(SOURCES_FOLDER), $(SOURCES))
 
-$(NAME): $(OBJECTS)
-	@ar rcs $(NAME) $(OBJECTS)
+all: $(NAME)
+	@$(CC) $(FLAGS) -I $(HEADER) main.c srcs/$(NAME) -o main
 
-$(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)/ft_printf.h
+$(NAME): $(OBJECTS)
+	@ar rcs srcs/$(NAME) $(OBJECTS)
+
+$(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p obj
 	@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
 
@@ -122,7 +126,8 @@ clean:
 	@rm -rf libft
 	
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f srcs/$(NAME)
+	@rm -f main
 
 re: fclean all
 

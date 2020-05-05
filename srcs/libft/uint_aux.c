@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   uint_aux.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:10:43 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/21 13:39:46 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:47:32 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 char	*create_str_u(unsigned long long nbr, t_lst **temp, int *w_p, char *fl)
 {

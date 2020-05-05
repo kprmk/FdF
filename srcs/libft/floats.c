@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   floats.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 10:08:36 by mbrogg            #+#    #+#             */
-/*   Updated: 2020/02/22 01:52:37 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:31 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 char	*only_frac_input(char *frac, int *sh_pr_sg)
 {
@@ -46,9 +46,7 @@ char	*parse_str_to_lan(char *i_part, char *f_part, int *sh_pr_sg)
 	t_lan	*i_db;
 	t_lanch	*f_db;
 	int		flag;
-	int		c;
 
-	c = -1;
 	i_db = create_lan_from_bitstr(i_part);
 	free(i_part);
 	if (ft_str_is_null_value(f_part) == 0)

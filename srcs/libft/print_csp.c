@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_csp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 16:17:22 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/13 19:03:13 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:47:14 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	char_align(char c, int w, char side, char filler)
 {

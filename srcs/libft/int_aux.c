@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   int_aux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:03:50 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/21 21:05:47 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:51 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	add_s_or_p(char **str, t_lst *temp, long long int nbr)
 {

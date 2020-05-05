@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_and_fill_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 17:44:04 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/17 12:56:15 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:17 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int		*count_args(const char *format, int *amount)
 {

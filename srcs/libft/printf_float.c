@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   printf_float.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:57:42 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/21 23:42:56 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/05/05 23:47:35 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int		print_float(t_lst *temp, double input, int *w_p)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:10:46 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/20 23:52:14 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:47:18 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int		print_int(t_lst *temp, long long int nbr, int *w_p)
 {

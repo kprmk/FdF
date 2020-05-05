@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   long_arithm_char_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:46:47 by mbrogg            #+#    #+#             */
-/*   Updated: 2020/02/22 00:51:01 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/05/05 23:47:04 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int		increas_lanch_one(t_lanch *res, int c)
 {

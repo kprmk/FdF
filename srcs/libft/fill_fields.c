@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fill_fields.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 17:45:13 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/13 18:35:30 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:20 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int		find_flags(const char *format, int pos, t_lst **node)
 {

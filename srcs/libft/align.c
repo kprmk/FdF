@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   align.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:54:23 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/17 12:55:42 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:05 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	align_left(char **res, char *str, int size, char filler)
 {

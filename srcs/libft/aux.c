@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   aux.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eshor <eshor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 17:43:05 by eshor             #+#    #+#             */
-/*   Updated: 2020/02/21 20:48:21 by eshor            ###   ########.fr       */
+/*   Updated: 2020/05/05 23:46:10 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int		is_valid(char c, char n, char type)
 {
