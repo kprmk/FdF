@@ -1,16 +1,17 @@
 #include "fdf.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
-  void *mlx;
-  void *window;
-  
-  mlx = mlx_init();
-  window = mlx_new_window(mlx, 1000, 1000, "Title");
-  ft_printf("start\n");
+	frame	*map;
+	int		c;
 
-  if (window) {}
-  
-  mlx_loop(mlx);
-  return (0);
+	map = NULL;
+	c = 0;
+	while (++c < argc)
+	{
+ 		map = init_frame(map);
+		validation(map, argv[c]);
+		print_frame(map);
+	}
+	return (0);
 }

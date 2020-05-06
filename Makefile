@@ -107,7 +107,7 @@ OBJECTS := $(addprefix $(OBJECTS_FOLDER), $(OBJECTS))
 SOURCES := $(addprefix $(SOURCES_FOLDER), $(SOURCES))
 
 all: $(NAME)
-	@$(CC) $(FLAGS) srcs/main.c $(MLX) $(INCLUDE_FOLDERS) srcs/$(NAME) -o fdf
+	@$(CC) $(FLAGS) srcs/*.c $(MLX) $(INCLUDE_FOLDERS) srcs/$(NAME) -o fdf
 
 $(NAME): $(OBJECTS)
 	@ar rcs srcs/$(NAME) $(OBJECTS)

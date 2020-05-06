@@ -1,0 +1,45 @@
+ {
+	// See https://go.microsoft.com/fwlink/?LinkId=733558 
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "gcc---",
+			"command": "gcc",
+			"args": [
+				"-Wall",
+				"-Wextra",
+				"-Werror",
+				"-g",				
+				"-I",
+				"${workspaceFolder}/libft/includes/",
+				"${workspaceFolder}/get_next_line.c",
+				"${workspaceFolder}/libft/libft.a",
+				"${workspaceFolder}/main.c",
+				"-o",
+				"${workspaceFolder}/a"
+			],
+			"options": {
+				"cwd": "/usr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "make_libft",
+			"command": "make",
+			"args": [
+				"-C",
+				"${workspaceFolder}/libft/",
+				"re"
+			]
+		}
+	]
+}

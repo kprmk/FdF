@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 21:44:02 by mbrogg            #+#    #+#             */
-/*   Updated: 2019/11/05 12:47:12 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/05/06 23:54:39 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	}
 	else if (content_size)
 	{
-		res->content = ft_memalloc(content_size);
-		ft_memcpy(res->content, content, content_size);
+		res->content = ft_strdup((char *)content);
+		// res->content = ft_memalloc(content_size);
+		// ft_memcpy(res->content, content, content_size);
 		res->content_size = content_size;
 	}
 	res->next = NULL;
+	res->prev = NULL;
 	return (res);
 }
