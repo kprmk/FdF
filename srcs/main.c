@@ -1,7 +1,16 @@
-#include "libft.h"
+#include <unistd.h>
+#include <mlx.h>
 
-int main()
+int main(void)
 {
-    ft_printf("%d\n", 10);
-    return (0);
+  void *mlx;
+  void *window;
+  
+  mlx = mlx_init();
+  window = mlx_new_window(mlx, 1000, 1000, "Title");
+
+  if (window) {}
+  
+  mlx_loop(mlx);
+  return (0);
 }
