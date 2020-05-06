@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <mlx.h>
+#include "fdf.h"
 
 int main(void)
 {
@@ -8,6 +7,7 @@ int main(void)
   
   mlx = mlx_init();
   window = mlx_new_window(mlx, 1000, 1000, "Title");
+  ft_printf("start\n");
 
   if (window) {}
   

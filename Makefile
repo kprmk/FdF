@@ -4,6 +4,7 @@ FLAGS = -g -Wall -Wextra -Werror
 INCLUDE_FOLDERS := -I includes/
 SOURCES_FOLDER  := srcs/
 OBJECTS_FOLDER  := objs/
+MLX := -lm -L/usr/lib/X11 -lmlx -lXext -lX11
 vpath %.c srcs
 SOURCES :=	libft/aux.c \
 			libft/checks_rounding.c \
@@ -98,7 +99,6 @@ SOURCES :=	libft/aux.c \
 			libft/ft_lstnew_fd.c \
 			libft/ft_strjoin_s.c \
 			libft/get_next_line.c \
-			main.c \
 
 
 OBJECTS := $(SOURCES:.c=.o)
@@ -107,7 +107,7 @@ OBJECTS := $(addprefix $(OBJECTS_FOLDER), $(OBJECTS))
 SOURCES := $(addprefix $(SOURCES_FOLDER), $(SOURCES))
 
 all: $(NAME)
-	@$(CC) $(FLAGS) -I $(HEADER) main.c srcs/$(NAME) -o main
+	@$(CC) $(FLAGS) srcs/main.c $(MLX) $(INCLUDE_FOLDERS) srcs/$(NAME) -o fdf
 
 $(NAME): $(OBJECTS)
 	@ar rcs srcs/$(NAME) $(OBJECTS)
@@ -127,7 +127,7 @@ clean:
 	
 fclean: clean
 	@rm -f srcs/$(NAME)
-	@rm -f main
+	@rm -f fdf
 
 re: fclean all
 
