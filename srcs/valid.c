@@ -6,7 +6,7 @@ frame	*init_frame(frame *ipt)
 		return (NULL);
 	ipt->ht = 0;
 	ipt->wh = 0;
-	ipt->mtx = NULL;
+	ipt->mx = NULL;
 	return (ipt);
 }
 
@@ -55,10 +55,10 @@ void	*parse_list(frame *map, t_list *head)
 		if (!map->wh)
 			while (strs[map->wh])
 				map->wh++;
-		if (!(map->mtx[++i] = (int *)malloc(sizeof(int) * map->wh)))
+		if (!(map->mx[++i] = (int *)malloc(sizeof(int) * map->wh)))
 			return (NULL);
 		while (strs[++c])
-			map->mtx[i][c] = ft_atoi(strs[c]);
+			map->mx[i][c] = ft_atoi(strs[c]);
 		free(strs);
 		temp = temp->prev;
 	}
@@ -75,7 +75,7 @@ void	*get_height_from_list(frame *map, t_list *head, t_list **temp)
 	*temp = head;
 	while ((*temp)->next)
 		*temp = (*temp)->next;
-	if (!(map->mtx = (int **)malloc(sizeof(int *) * map->ht)))
+	if (!(map->mx = (int **)malloc(sizeof(int *) * map->ht)))
 		return (NULL);
 	return (*temp);
 }
@@ -95,7 +95,7 @@ void	print_frame(frame *map)
 	{
 		j = 0;
 		while (++j < map->wh)
-			ft_printf("%2d ", map->mtx[i][j]);
+			ft_printf("%2d ", map->mx[i][j]);
 		ft_printf("\n");
 	}
 }

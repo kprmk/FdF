@@ -13,5 +13,12 @@ int main(int argc, char **argv)
 		validation(map, argv[c]);
 		print_frame(map);
 	}
+	map->mlx = mlx_init();
+	map->win = mlx_new_window(map->mlx, 1000, 1000, "FdF");
+	/**/
+	map->scale = 50;
+	/**/
+	draw_map(map);
+	mlx_loop(map->mlx);
 	return (0);
 }
