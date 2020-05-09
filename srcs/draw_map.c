@@ -1,8 +1,29 @@
 #include "fdf.h"
 
+int		deal_key(int key, frame *map)
+{
+	ft_printf("%d\n", key);
+	if (key == 65293)
+		map->sh_y -= 1;
+	if (key == 65362)
+		map->sh_y += 1;
+	if (key == 65364)
+		map->sh_x += 1;
+	if (key == 65361)
+		map->sh_x -= 1;
+	draw_map(map);
+	return (0);
+}
+
+void	isometric(float *x, float *y, int z)
+{
+	*x = (*x - *y) * cos(0.8);
+	*y = (*x + *y) * sin(0.8) - z;
+}
+
 void	draw_map(frame *map)
 {
-	int	i;
+	int	i; 
 	int	j;
 
 	i = 0;

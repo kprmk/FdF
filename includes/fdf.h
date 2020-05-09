@@ -3,6 +3,7 @@
 
 #include "libft.h"
 #include <mlx.h>
+#include <math.h>
 
 typedef struct
 {
@@ -12,6 +13,8 @@ typedef struct
 	int		ht;
 	int		**mx;
 	int		scale;
+	int		sh_x;
+	int		sh_y;
 }			frame;
 
 frame	*init_frame(frame *ipt);
@@ -24,7 +27,8 @@ int		ft_mod(int a);
 void	draw_line(frame *map, float x1, float y1, float x2, float y2);
 void	bresenham(frame *map, int x1, int y1, int x2, int y2);
 void	draw_map(frame *map);
-
+void	isometric(float *x, float *y, int z);
+int		deal_key(int key, frame *map);
 
 
 #endif

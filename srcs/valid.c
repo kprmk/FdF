@@ -7,6 +7,9 @@ frame	*init_frame(frame *ipt)
 	ipt->ht = 0;
 	ipt->wh = 0;
 	ipt->mx = NULL;
+	ipt->scale = 50;
+	ipt->sh_x = 0;
+	ipt->sh_y = 0;
 	return (ipt);
 }
 

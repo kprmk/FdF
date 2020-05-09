@@ -11,6 +11,16 @@ void	draw_line(frame *map, float x1, float y1, float x2, float y2)
 	float	y_ss;
 	int		max;
 
+	int color = map->mx[(int)y1][(int)x1] ? 0xffff00: 0x00ffff;
+
+	isometric(&x1, &y1, map->mx[(int)y1][(int)x1]);
+	isometric(&x2, &y2, map->mx[(int)y2][(int)x2]);
+
+	x1 += map->sh_x;
+	y1 += map->sh_y;
+	x2 += map->sh_x;
+	y1 += map->sh_y;
+
 	x1 *= map->scale;
 	y1 *= map->scale;
 	x2 *= map->scale;
@@ -22,7 +32,7 @@ void	draw_line(frame *map, float x1, float y1, float x2, float y2)
 	y_ss /= max;
 	while ((int)(x2 - x1) || (int)(y2 - y1))
 	{
-		mlx_pixel_put(map->mlx, map->win, x1, y1, 0x00FFFF);
+		mlx_pixel_put(map->mlx, map->win, x1, y1, color);
 		x1 += x_ss;
 		y1 += y_ss;
 	}
