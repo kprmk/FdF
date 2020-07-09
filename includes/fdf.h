@@ -11,7 +11,7 @@ typedef struct
 	void    *win;
 	int		wh;
 	int		ht;
-	int		**mx;
+	int		**mxy;
 	int		scale;
 	int		sh_x;
 	int		sh_y;
@@ -20,7 +20,7 @@ typedef struct
 frame	*init_frame(frame *ipt);
 t_list	*validation(frame *map, char *file_name);
 void	*parse_list(frame *map, t_list *head);
-void	*get_height_from_list(frame *map, t_list *head, t_list **temp);
+void	*parse_list_init(frame *map, t_list *head, t_list **temp);
 void	print_frame(frame *map);
 int		ft_max(int a, int b);
 int		ft_mod(int a);

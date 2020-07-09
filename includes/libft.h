@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 11:36:21 by mbrogg            #+#    #+#             */
-/*   Updated: 2020/05/06 23:28:49 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/09 22:53:25 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ft_putstr(char const *s);
 void			ft_putendl(char const *s);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putnbr(int n);
-char			**ft_free_split(char **ar, size_t i);
+char			**ft_free_split(char **ar, int i);
 
 typedef	struct	s_list
 {

@@ -3,24 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrogg <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 23:35:39 by mbrogg            #+#    #+#             */
-/*   Updated: 2019/09/20 23:35:41 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/07/09 22:53:17 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_free_split(char **ar, size_t i)
+char	**ft_free_split(char **ar, int i)
 {
-	size_t	j;
+	int	j;
 
 	j = 0;
-	while (j != i)
+	if (i != -1)
 	{
-		free(ar[j]);
-		j++;
+		while (j != i)
+		{
+			free(ar[j]);
+			j++;
+		}
+	}
+	else
+	{
+		while (ar[j])
+		{
+			free(ar[j]);
+			j++;
+		}
 	}
 	free(ar);
 	return (NULL);

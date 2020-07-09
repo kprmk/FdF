@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
+/*   Updated: 2020/07/09 23:02:48 by kprmk            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 frame	*init_frame(frame *ipt)
@@ -6,41 +18,34 @@ frame	*init_frame(frame *ipt)
 		return (NULL);
 	ipt->ht = 0;
 	ipt->wh = 0;
-	ipt->mx = NULL;
-	ipt->scale = 50;
+	ipt->mxy = NULL;
+	ipt->scale = 100;
 	ipt->sh_x = 0;
 	ipt->sh_y = 0;
 	return (ipt);
 }
 
-/*
-**	
-*/
-
 t_list	*validation(frame *map, char *file_name)
 {
-	int     fd;
-	char    *str;
-	t_list  *head;
+	int		fd;
+	char	*str;
+	t_list	*head;
 
 	head = NULL;
-    fd = open(file_name, O_RDONLY, 0);
+	fd = open(file_name, O_RDONLY, 0);
 	if (fd > 0)
 	{
-    	while(get_next_line(fd, &str))
-    	{
+		while (get_next_line(fd, &str))
+		{
 			map->ht++;
-    	    ft_lstadd(&head, ft_lstnew(str, sizeof(str)));
-    	    free(str);
-    	}
+			ft_lstadd(&head, ft_lstnew(str, sizeof(str)));
+			free(str);
+		}
 	}
-	parse_list(map, head);
+	if (!(parse_list(map, head)))
+		return (NULL);
 	return (head);
 }
-
-/*
-**	
-*/
 
 void	*parse_list(frame *map, t_list *head)
 {
@@ -50,7 +55,8 @@ void	*parse_list(frame *map, t_list *head)
 	int		c;
 
 	i = -1;
-	get_height_from_list(map, head, &temp);
+	if (!(parse_list_init(map, head, &temp)))
+		return (NULL);
 	while (temp)
 	{
 		c = -1;
@@ -58,34 +64,25 @@ void	*parse_list(frame *map, t_list *head)
 		if (!map->wh)
 			while (strs[map->wh])
 				map->wh++;
-		if (!(map->mx[++i] = (int *)malloc(sizeof(int) * map->wh)))
+		if (!(map->mxy[++i] = (int *)malloc(sizeof(int) * map->wh)))
 			return (NULL);
 		while (strs[++c])
-			map->mx[i][c] = ft_atoi(strs[c]);
-		free(strs);
+			map->mxy[i][c] = ft_atoi(strs[c]);
+		strs = ft_free_split(strs, -1);
 		temp = temp->prev;
 	}
 	return (map);
 }
 
-
-/*
-**	
-*/
-
-void	*get_height_from_list(frame *map, t_list *head, t_list **temp)
+void	*parse_list_init(frame *map, t_list *head, t_list **temp)
 {
 	*temp = head;
 	while ((*temp)->next)
 		*temp = (*temp)->next;
-	if (!(map->mx = (int **)malloc(sizeof(int *) * map->ht)))
+	if (!(map->mxy = (int **)malloc(sizeof(int *) * map->ht)))
 		return (NULL);
 	return (*temp);
 }
-
-/*
-**	
-*/
 
 void	print_frame(frame *map)
 {
@@ -98,7 +95,7 @@ void	print_frame(frame *map)
 	{
 		j = 0;
 		while (++j < map->wh)
-			ft_printf("%2d ", map->mx[i][j]);
+			ft_printf("%2d ", map->mxy[i][j]);
 		ft_printf("\n");
 	}
 }

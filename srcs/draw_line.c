@@ -11,10 +11,10 @@ void	draw_line(frame *map, float x1, float y1, float x2, float y2)
 	float	y_ss;
 	int		max;
 
-	int color = map->mx[(int)y1][(int)x1] ? 0xffff00: 0x00ffff;
+	int color = map->mxy[(int)y1][(int)x1] ? 0xffff00: 0x00ffff;
 
-	isometric(&x1, &y1, map->mx[(int)y1][(int)x1]);
-	isometric(&x2, &y2, map->mx[(int)y2][(int)x2]);
+	isometric(&x1, &y1, map->mxy[(int)y1][(int)x1]);
+	isometric(&x2, &y2, map->mxy[(int)y2][(int)x2]);
 
 	x1 += map->sh_x;
 	y1 += map->sh_y;
