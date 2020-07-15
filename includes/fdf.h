@@ -25,10 +25,13 @@ void	print_frame(frame *map);
 int		ft_max(int a, int b);
 int		ft_mod(int a);
 void	draw_line(frame *map, float x1, float y1, float x2, float y2);
-void	bresenham(frame *map, int x1, int y1, int x2, int y2);
+void	bresenham(frame *map, int x1, int y1, int x2, int y2, int col);
 void	draw_map(frame *map);
 void	isometric(float *x, float *y, int z);
 int		deal_key(int key, frame *map);
+int		diff_direction(int diff_var);
+void	brezenham_draw(frame *map, int x1, int y1, int x2, int y2, int col);
+void	bresenham_2(frame *map, int x1, int y1, int x2, int y2, int col);
 
 
 #endif

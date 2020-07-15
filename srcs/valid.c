@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/09 23:02:48 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/14 23:51:20 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ frame	*init_frame(frame *ipt)
 	ipt->ht = 0;
 	ipt->wh = 0;
 	ipt->mxy = NULL;
-	ipt->scale = 100;
+	ipt->scale = 50;
 	ipt->sh_x = 0;
 	ipt->sh_y = 0;
 	return (ipt);
