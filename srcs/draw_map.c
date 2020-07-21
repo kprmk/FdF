@@ -33,9 +33,9 @@ void	draw_map(frame *map)
 		while (j < map->wh)
 		{
 			if (j < map->wh - 1)
-				draw_line(map, j, i, j + 1, i);
+				// draw_line(map, j, i, j + 1, i);
 			if (i < map->ht - 1)			
-				draw_line(map, j, i, j, i + 1);
+				// draw_line(map, j, i, j, i + 1);
 			++j;	
 		}
 		++i;
