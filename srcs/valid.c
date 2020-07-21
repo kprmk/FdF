@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/14 23:51:20 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/21 20:40:51 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	print_frame(frame *map)
 	j = -1;
 	while (++i < map->ht)
 	{
-		j = 0;
+		j = -1;
 		while (++j < map->wh)
 			ft_printf("%2d ", map->mxy[i][j]);
 		ft_printf("\n");

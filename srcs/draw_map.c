@@ -21,23 +21,40 @@ void	isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	draw_map(frame *map)
+void	*draw_map(frame *map)
 {
 	int	i; 
 	int	j;
+	int	*crds;
 
 	i = 0;
+	if (!(crds = (int *)malloc(sizeof(int) * 4)))
+		return (NULL);
 	while (i < map->ht)
 	{
 		j = 0;
 		while (j < map->wh)
 		{
+			crds[0] = j * map->scale;
+			crds[1] = i * map->scale;
 			if (j < map->wh - 1)
-				// draw_line(map, j, i, j + 1, i);
-			if (i < map->ht - 1)			
-				// draw_line(map, j, i, j, i + 1);
-			++j;	
+			{
+				crds[2] = (j + 1) * map->scale;
+				crds[3] = i * map->scale;
+				if (!line_draw(map, crds, 1))
+					return (NULL);
+			}
+			if (i < map->ht - 1)
+			{
+				crds[2] = j * map->scale;
+				crds[3] = (i + 1) * map->scale;
+				if (!line_draw(map, crds, 0))
+					return (NULL);
+			}
+			++j;
 		}
 		++i;
 	}
+	free(crds);
+	return (NULL);
 }

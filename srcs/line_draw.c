@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_line.c                                        :+:      :+:    :+:   */
+/*   line_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/21 19:56:17 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/21 21:35:30 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	*line_draw(frame *map, int *crds, int flag)
+{
+	// int	i = -1;
+	
+	if (flag)
+		ft_printf("");	
+	// ft_printf("$$$\t");
+	// while (++i < 4)
+	// 	ft_printf("%d ", *crds[i]);
+	// ft_printf("\n");
+	// crds[2] = crds[0] - (!flag) ? map->scale : 0;
+	// crds[3] = crds[1] + (!flag) ? map->scale : 0;
+
+	// ft_printf("###\t");
+	// i = -1;
+	// while (++i < 4)
+	// 	ft_printf("%d <-> %d ", i, crds[i]);
+	// ft_printf("\n");
+
+	return (bresenham(map, crds));
+}
 
 int		diff_direction(int diff_var)
 {
@@ -44,7 +66,7 @@ int		diff_direction(int diff_var)
 **	dx, dy, dxabs, dyabs, col
 */
 
-void	*bresenham(frame *map, int *crds, int col)
+void	*bresenham(frame *map, int *crds)
 {
 	int	*data;
 	int	*iter;
@@ -61,7 +83,7 @@ void	*bresenham(frame *map, int *crds, int col)
 	data[1] = crds[3] - crds[1];
 	data[2] = abs(crds[2] - crds[0]);
 	data[3] = abs(crds[3] - crds[1]);
-	data[4] = col;
+	data[4] = 0xffff00;
 	if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
 		return (bresenham_dx(map, crds, iter, data));
 	else
@@ -91,7 +113,7 @@ void	*bresenham_dx(frame *map, int *crds, int *iter, int *data)
 		}
 		iter[0] = (data[0] > 0) ? iter[0] + 1 : iter[0] - 1;
 	}
-	return (NULL);
+	return (crds);
 }
 
 void	*bresenham_dy(frame *map, int *crds, int *iter, int *data)
@@ -108,5 +130,5 @@ void	*bresenham_dy(frame *map, int *crds, int *iter, int *data)
 		}
 		iter[1] = (data[1] > 0) ? iter[1] + 1 : iter[1] - 1;
 	}
-	return (NULL);
+	return (crds);
 }
