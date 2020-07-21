@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
+/*   Updated: 2020/07/21 21:50:26 by kprmk            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int		deal_key(int key, frame *map)
@@ -23,38 +35,24 @@ void	isometric(float *x, float *y, int z)
 
 void	*draw_map(frame *map)
 {
-	int	i; 
+	int	i;
 	int	j;
-	int	*crds;
 
 	i = 0;
-	if (!(crds = (int *)malloc(sizeof(int) * 4)))
-		return (NULL);
 	while (i < map->ht)
 	{
 		j = 0;
 		while (j < map->wh)
 		{
-			crds[0] = j * map->scale;
-			crds[1] = i * map->scale;
 			if (j < map->wh - 1)
-			{
-				crds[2] = (j + 1) * map->scale;
-				crds[3] = i * map->scale;
-				if (!line_draw(map, crds, 1))
+				if (!line_draw(map, j, i, 0))
 					return (NULL);
-			}
 			if (i < map->ht - 1)
-			{
-				crds[2] = j * map->scale;
-				crds[3] = (i + 1) * map->scale;
-				if (!line_draw(map, crds, 0))
+				if (!line_draw(map, j, i, 1))
 					return (NULL);
-			}
 			++j;
 		}
 		++i;
 	}
-	free(crds);
 	return (NULL);
 }

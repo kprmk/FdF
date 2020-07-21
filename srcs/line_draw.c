@@ -6,31 +6,22 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/21 21:35:30 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/21 21:51:05 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	*line_draw(frame *map, int *crds, int flag)
+void	*line_draw(frame *map, int x, int y, int flag)
 {
-	// int	i = -1;
-	
-	if (flag)
-		ft_printf("");	
-	// ft_printf("$$$\t");
-	// while (++i < 4)
-	// 	ft_printf("%d ", *crds[i]);
-	// ft_printf("\n");
-	// crds[2] = crds[0] - (!flag) ? map->scale : 0;
-	// crds[3] = crds[1] + (!flag) ? map->scale : 0;
+	int	*crds;
 
-	// ft_printf("###\t");
-	// i = -1;
-	// while (++i < 4)
-	// 	ft_printf("%d <-> %d ", i, crds[i]);
-	// ft_printf("\n");
-
+	if (!(crds = (int *)malloc(sizeof(int) * 4)))
+		return (NULL);
+	crds[0] = x * map->scale;
+	crds[1] = y * map->scale;
+	crds[2] = (x + ((flag == 0) ? 1 : 0)) * map->scale;
+	crds[3] = (y + ((flag == 0) ? 0 : 1)) * map->scale;
 	return (bresenham(map, crds));
 }
 

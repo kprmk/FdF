@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/21 21:28:48 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/21 21:37:45 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_frame(frame *map);
 int		ft_max(int a, int b);
 int		ft_mod(int a);
 
-void	*line_draw(frame *map, int *crds, int flag);
+void	*line_draw(frame *map, int x, int y, int flag);
 int		diff_direction(int diff_var);
 void	*bresenham(frame *map, int *crds);
 void	*bresenham_dx(frame *map, int *crds, int *iter, int *data);
