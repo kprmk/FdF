@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:40 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/21 20:01:02 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/24 12:32:25 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int main(int argc, char **argv)
 {
-	frame	*map;
+	t_frame	*map;
 	int		c;
 
 	map = NULL;
@@ -34,6 +34,14 @@ int main(int argc, char **argv)
 	map->win = mlx_new_window(map->mlx, W, H, "FdF");
 	draw_map(map);
 
+
+	mlx_key_hook(map->win, deal_key, map);
+	mlx_loop(map->mlx);
+	return (0);
+}
+
+void test_draw()
+{
 	//	##############TEST###############################
 	// for (double i = 0; i <= 3.14 * 2; i += (3.14 / 70))
 	// {
@@ -43,8 +51,4 @@ int main(int argc, char **argv)
 	// 	crds[3] = (int)(H / 2 + sin(i) * 500);	
 	// 	bresenham(map, crds, (i < 3.14) ? 0x0f0ff0: 0x00ffff);
 	// }
-
-	mlx_key_hook(map->win, deal_key, map);
-	mlx_loop(map->mlx);
-	return (0);
 }

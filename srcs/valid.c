@@ -6,26 +6,26 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/21 20:40:51 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/07/24 12:18:42 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-frame	*init_frame(frame *ipt)
+t_frame	*init_frame(t_frame *ipt)
 {
-	if (!(ipt = (frame *)malloc(sizeof(frame))))
+	if (!(ipt = (t_frame *)malloc(sizeof(t_frame))))
 		return (NULL);
 	ipt->ht = 0;
 	ipt->wh = 0;
 	ipt->mxy = NULL;
-	ipt->scale = 50;
+	ipt->scale = 20;
 	ipt->sh_x = 0;
 	ipt->sh_y = 0;
 	return (ipt);
 }
 
-t_list	*validation(frame *map, char *file_name)
+t_list	*validation(t_frame *map, char *file_name)
 {
 	int		fd;
 	char	*str;
@@ -47,7 +47,7 @@ t_list	*validation(frame *map, char *file_name)
 	return (head);
 }
 
-void	*parse_list(frame *map, t_list *head)
+void	*parse_list(t_frame *map, t_list *head)
 {
 	t_list	*temp;
 	char	**strs;
@@ -74,7 +74,7 @@ void	*parse_list(frame *map, t_list *head)
 	return (map);
 }
 
-void	*parse_list_init(frame *map, t_list *head, t_list **temp)
+void	*parse_list_init(t_frame *map, t_list *head, t_list **temp)
 {
 	*temp = head;
 	while ((*temp)->next)
@@ -84,7 +84,7 @@ void	*parse_list_init(frame *map, t_list *head, t_list **temp)
 	return (*temp);
 }
 
-void	print_frame(frame *map)
+void	print_frame(t_frame *map)
 {
 	int	i;
 	int	j;
