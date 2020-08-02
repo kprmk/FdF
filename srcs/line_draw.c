@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/02 14:13:53 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/02 17:45:23 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,8 @@ void	*line_draw(t_frame *map, int x, int y, int flag)
 	crds[5] = map->mxy[crds[3]][crds[2]];
 	while (++i < 4)
 		crds[i] *= map->scale;
-	crds = projection(crds, 2);
-	crds[0] += map->sh_x;
-	crds[1] += map->sh_y;
-	crds[2] += map->sh_x;
-	crds[3] += map->sh_y;
+	crds = projection(crds, map);
+	crds = rotation_and_shift(crds, map);
 	col = ((map->mxy[y][x]) ? 0xffff00 : 0x00ffff);
 	return (bresenham(map, crds, col));
 }
@@ -111,13 +108,10 @@ void	*bresenham(t_frame *map, int *crds, int col)
 
 void	*bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 {
-	int col;
-
 	iter[2] = diff_direction(data[1]);
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
-		col = get_color(crds, iter, data, 0);
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], col);
+		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[4]);
 		iter[3] += data[3];
 		if (iter[3] > data[2])
 		{
@@ -131,13 +125,10 @@ void	*bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 
 void	*bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 {
-	int col;
-
 	iter[2] = diff_direction(data[0]);
 	while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	{
-		col = get_color(crds, iter, data, 1);
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], col);
+		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[4]);
 		iter[3] += data[2];
 		if (iter[3] > data[3])
 		{

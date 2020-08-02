@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/02 14:27:03 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/02 18:05:21 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ t_frame	*init_frame(t_frame *ipt, int width, int height)
 	ipt->scale = 20;
 	ipt->sh_x = width / 4;
 	ipt->sh_y = height / 4;
-	ipt->sh_step = width / 20;
+	ipt->type_proj = 0;
+	ipt->angle_iso = 30;
+	ipt->rotated_axis = 0;
+	ipt->rotated_axis = 0;
 	return (ipt);
 }
 
@@ -45,6 +48,7 @@ t_list	*validation(t_frame *map, char *file_name)
 	}
 	if (!(parse_list(map, head)))
 		return (NULL);
+	close(fd);
 	return (head);
 }
 

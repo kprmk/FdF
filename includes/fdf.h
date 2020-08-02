@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/02 14:34:21 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/02 18:05:03 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ typedef struct	s_frame
 	int			scale;
 	int			sh_x;
 	int			sh_y;
-	int			type_proj:2;
-	int			sh_step;
+	int			type_proj : 3;
+	int			angle_iso;
+	int			rotated_axis : 3;
+	int			rotated_angle;
 }				t_frame;
 
 typedef	struct	s_unit
@@ -53,10 +55,11 @@ void			*bresenham_dx(t_frame *map, int *crds, int *iter, int *data);
 void			*bresenham_dy(t_frame *map, int *crds, int *iter, int *data);
 
 void			*draw_map(t_frame *map);
-int				*projection(int *crds, int type_proj);
-int				*isometric(int *crds, double angle);
-int				deal_key(int key, t_frame *map);
+int				*projection(int *crds, t_frame *map);
 
+int				deal_key(int key, t_frame *map);
 int				get_color(int *crds, int *iter, int *data, int flag);
+
+int		*rotation_and_shift(int *crds, t_frame *map);
 
 #endif
