@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/24 12:30:22 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/02 13:30:35 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*line_draw(t_frame *map, int x, int y, int flag)
 	crds[5] = map->mxy[crds[3]][crds[2]];
 	while (++i < 4)
 		crds[i] *= map->scale;
-	crds = isometric(crds);
+	crds = isometric(crds, map->);
 	crds[0] += map->sh_x;
 	crds[1] += map->sh_y;
 	crds[2] += map->sh_x;

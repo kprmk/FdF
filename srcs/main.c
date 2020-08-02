@@ -6,15 +6,15 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:40 by kprmk             #+#    #+#             */
-/*   Updated: 2020/07/24 12:32:25 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/02 13:34:31 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 #include <math.h>
-#define W	1000
-#define	H	1000
+#define W 1000
+#define H 1000
 
 int main(int argc, char **argv)
 {
