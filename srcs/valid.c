@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/02 18:05:21 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/02 23:27:19 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_frame	*init_frame(t_frame *ipt, int width, int height)
 	ipt->sh_y = height / 4;
 	ipt->type_proj = 0;
 	ipt->angle_iso = 30;
-	ipt->rotated_axis = 0;
 	ipt->rotated_axis = 0;
 	return (ipt);
 }
@@ -45,6 +44,11 @@ t_list	*validation(t_frame *map, char *file_name)
 			ft_lstadd(&head, ft_lstnew(str, sizeof(str)));
 			free(str);
 		}
+	}
+	else
+	{
+		ft_printf("There's been problem with openning input file\n");
+		return (NULL);
 	}
 	if (!(parse_list(map, head)))
 		return (NULL);

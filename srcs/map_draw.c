@@ -6,11 +6,35 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/02 18:14:05 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/03 13:17:09 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	*draw_map(t_frame *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->ht)
+	{
+		j = 0;
+		while (j < map->wh)
+		{
+			if (j < map->wh - 1)
+				if (!line_draw(map, j, i, 0))
+					return (NULL);
+			if (i < map->ht - 1)
+				if (!line_draw(map, j, i, 1))
+					return (NULL);
+			++j;
+		}
+		++i;
+	}
+	return (NULL);
+}
 
 /*
 **	ISO
@@ -79,36 +103,14 @@ int		get_color(int *crds, int *iter, int *data, int flag)
 	double	ratio;
 
 	if (!flag)
+	{
 		ratio = (iter[0] - crds[0]) / (crds[2] - crds[0]);
+		// ft_printf("%f\n", (iter[0] - crds[0]) / (crds[2] - crds[0]));
+	}
 	else
 		ratio = (iter[1] - crds[1]) / (crds[3] - crds[1]);
-	red = color_formula((data[4] >> 16) & 0xff, (data[5] >> 16) & 0xff, ratio);
-	green = color_formula((data[4] >> 8) & 0xff, (data[5] >> 8) & 0xff, ratio);
-	blue = color_formula(data[4] & 0xff, data[5] & 0xff, ratio);
+	red = color_formula((data[6] >> 16) & 0xff, (data[7] >> 16) & 0xff, ratio);
+	green = color_formula((data[6] >> 8) & 0xff, (data[7] >> 8) & 0xff, ratio);
+	blue = color_formula(data[6] & 0xff, data[7] & 0xff, ratio);
 	return ((red << 16) | (green << 8) | blue);
-}
-
-void	*draw_map(t_frame *map)
-{
-	ft_printf("%d %d\n", map->rotated_axis, map->rotated_angle);
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < map->ht)
-	{
-		j = 0;
-		while (j < map->wh)
-		{
-			if (j < map->wh - 1)
-				if (!line_draw(map, j, i, 0))
-					return (NULL);
-			if (i < map->ht - 1)
-				if (!line_draw(map, j, i, 1))
-					return (NULL);
-			++j;
-		}
-		++i;
-	}
-	return (NULL);
 }
