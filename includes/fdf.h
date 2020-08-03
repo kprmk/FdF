@@ -59,6 +59,6 @@ void			*draw_map(t_frame *map);
 int				*projection(int *crds, t_frame *map);
 
 int				deal_key(int key, t_frame *map);
-int				get_color(int *crds, int *iter, int *data, int flag);
+int				get_color(int *crds, int *iter, int *data);
 
 #endif

@@ -86,6 +86,41 @@ int		color_formula(int str, int stp, double ratio)
 	return ((int)((1 - ratio) * str + ratio * stp));
 }
 
+// double percent(int start, int end, int current)
+// {
+//     double placement;
+//     double distance;
+
+//     placement = current - start;
+//     distance = end - start;
+//     return ((distance == 0) ? 1.0 : (placement / distance));
+// }
+
+// int get_light(int start, int end, double percentage)
+// {
+//     return ((int)((1 - percentage) * start + percentage * end));
+// }
+
+// int get_color(t_point current, t_point start, t_point end, t_point delta)
+// {
+//     int     red;
+//     int     green;
+//     int     blue;
+//     double  percentage;
+
+//     if (current.color == end.color)
+//         return (current.color);
+//     if (delta.x > delta.y)
+//         percentage = percent(start.x, end.x, current.x);
+//     else
+//         percentage = percent(start.y, end.y, current.y);
+//     red = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
+//     green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
+//     blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
+//     return ((red << 16) | (green << 8) | blue);
+// }
+
+
 /*
 **	cur - current coord, str - start, stp - stop, dif - difference
 **	##############################################################
@@ -97,20 +132,26 @@ int		color_formula(int str, int stp, double ratio)
 **	dx, dy, dxabs, dyabs, col0, col1
 */
 
-int		get_color(int *crds, int *iter, int *data, int flag)
+#include <stdio.h>
+int		get_color(int *crds, int *iter, int *data)
 {
 	int		red;
 	int		green;
 	int		blue;
 	double	ratio;
 
-	if (!flag)
+	printf("col0 %d, col1 %d, x0 %d, y0 %d, x1 %d, y1 %d, curx %d, cury %d ", crds[6], crds[7], crds[0], crds[1], crds[2], crds[3], iter[0], iter[1]);
+	if (crds[6] == crds[7])
+		return (crds[6]);
+	if (data[0] > data[1])
 	{
+		if ()
 		ratio = (iter[0] - crds[0]) / (crds[2] - crds[0]);
 		// ft_printf("%f\n", (iter[0] - crds[0]) / (crds[2] - crds[0]));
 	}
 	else
 		ratio = (iter[1] - crds[1]) / (crds[3] - crds[1]);
+	printf("ratio %f\n", ratio);
 	red = color_formula((data[6] >> 16) & 0xff, (data[7] >> 16) & 0xff, ratio);
 	green = color_formula((data[6] >> 8) & 0xff, (data[7] >> 8) & 0xff, ratio);
 	blue = color_formula(data[6] & 0xff, data[7] & 0xff, ratio);
