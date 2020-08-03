@@ -28,7 +28,13 @@ t_frame	*init_frame(t_frame *ipt, int width, int height)
 	return (ipt);
 }
 
-t_list	*validation(t_frame *map, char *file_name)
+void	del_func(void *to_del, size_t size)
+{
+	if (size)
+		free(to_del);
+}
+
+void	*validation(t_frame *map, char *file_name)
 {
 	int		fd;
 	char	*str;
@@ -44,6 +50,7 @@ t_list	*validation(t_frame *map, char *file_name)
 			ft_lstadd(&head, ft_lstnew(str, sizeof(str)));
 			free(str);
 		}
+		free(str);
 	}
 	else
 	{
@@ -52,8 +59,9 @@ t_list	*validation(t_frame *map, char *file_name)
 	}
 	if (!(parse_list(map, head)))
 		return (NULL);
+	ft_lstdel(&head, del_func);
 	close(fd);
-	return (head);
+	return (map);
 }
 
 void	*parse_list(t_frame *map, t_list *head)

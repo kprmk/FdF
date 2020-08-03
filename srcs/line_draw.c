@@ -31,8 +31,8 @@ void	*line_draw(t_frame *map, int x, int y, int flag)
 	crds[3] = (y + ((flag == 0) ? 0 : 1));
 	crds[4] = map->mxy[crds[1]][crds[0]];
 	crds[5] = map->mxy[crds[3]][crds[2]];
-	crds[6] = ((crds[4] == 0) ? 0xffff00 : 0xffff00);
-	crds[7] = ((crds[5] == 0) ? 0xffff00 : 0xffff00);
+	crds[6] = ((crds[4] == 0) ? 0xffff00 : 0x00ffff);
+	crds[7] = ((crds[5] == 0) ? 0xffff00 : 0x00ffff);
 	while (++i < 4)
 		crds[i] *= map->scale;
 	crds = projection(crds, map);
@@ -94,9 +94,13 @@ void	*bresenham(t_frame *map, int *crds)
 	data[2] = abs(crds[2] - crds[0]);
 	data[3] = abs(crds[3] - crds[1]);
 	if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
-		return (bresenham_dx(map, crds, iter, data));
+		bresenham_dx(map, crds, iter, data);
 	else
-		return (bresenham_dy(map, crds, iter, data));
+		bresenham_dy(map, crds, iter, data);
+	free(crds);
+	free(iter);
+	free(data);
+	return (map);
 }
 
 /*
@@ -108,7 +112,7 @@ void	*bresenham(t_frame *map, int *crds)
 **	dx, dy, dxabs, dyabs, col
 */
 
-void	*bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
+void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 {
 	// int color;
 
@@ -116,7 +120,7 @@ void	*bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
 		// color = get_color(crds, iter, data, 0);
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[7]);
+		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], crds[6]);
 		iter[3] += data[3];
 		if (iter[3] > data[2])
 		{
@@ -125,10 +129,9 @@ void	*bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 		}
 		iter[0] = (data[0] > 0) ? iter[0] + 1 : iter[0] - 1;
 	}
-	return (crds);
 }
 
-void	*bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
+void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 {
 	// int color;
 
@@ -136,7 +139,7 @@ void	*bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 	while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	{
 		// color = get_color(crds, iter, data, 1);
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[7]);
+		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], crds[6]);
 		iter[3] += data[2];
 		if (iter[3] > data[3])
 		{
@@ -145,5 +148,4 @@ void	*bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 		}
 		iter[1] = (data[1] > 0) ? iter[1] + 1 : iter[1] - 1;
 	}
-	return (crds);
 }

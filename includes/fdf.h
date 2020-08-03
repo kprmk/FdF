@@ -41,7 +41,7 @@ typedef	struct	s_unit
 }				t_unit;
 
 t_frame			*init_frame(t_frame *ipt, int width, int height);
-t_list			*validation(t_frame *map, char *file_name);
+void			*validation(t_frame *map, char *file_name);
 void			*parse_list(t_frame *map, t_list *head);
 void			*parse_list_init(t_frame *map, t_list *head, t_list **temp);
 void			print_frame(t_frame *map);
@@ -51,8 +51,9 @@ int				ft_mod(int a);
 void			*line_draw(t_frame *map, int x, int y, int flag);
 int				diff_direction(int diff_var);
 void			*bresenham(t_frame *map, int *crds);
-void			*bresenham_dx(t_frame *map, int *crds, int *iter, int *data);
-void			*bresenham_dy(t_frame *map, int *crds, int *iter, int *data);
+void			bresenham_dx(t_frame *map, int *crds, int *iter, int *data);
+void			
+bresenham_dy(t_frame *map, int *crds, int *iter, int *data);
 
 void			*draw_map(t_frame *map);
 int				*projection(int *crds, t_frame *map);

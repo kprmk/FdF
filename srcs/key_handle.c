@@ -17,13 +17,13 @@ void	shift_map(int key, t_frame *map)
 	int	shift_step;
 
 	shift_step = 20;
-	if (key == 65363)
+	if (key == 124)
 		map->sh_x += shift_step;
-	if (key == 65362)
+	if (key == 126)
 		map->sh_y -= shift_step;
-	if (key == 65364)
+	if (key == 125)
 		map->sh_y += shift_step;
-	if (key == 65361)
+	if (key == 123)
 		map->sh_x -= shift_step;
 }
 
@@ -32,22 +32,21 @@ void	scale_and_proj(int key, t_frame *map)
 	int	dif_scale;
 
 	dif_scale = 3;
-	if (key == 61)
+	if (key == 24)
 		map->scale += dif_scale;
-	if (key == 45)
+	if (key == 27)
 		map->scale -= dif_scale;
-	if (key == 112)
+	if (key == 35)
 		map->type_proj = (map->type_proj + 1) % 3;
-	if (key == 97)
+	if (key == 0)
 		map->angle_iso++;
-	if (key == 115)
+	if (key == 1)
 		map->angle_iso--;
 }
 
 int		deal_key(int key, t_frame *map)
 {
-	ft_printf("%d\n", key);
-	if (key == 65307)
+	if (key == 53)
 	{
 		free(map);
 		exit(0);
