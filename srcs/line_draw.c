@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/02 17:45:23 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/03 13:23:50 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 /*
 **	CRDS
-**	x0, y0, x1, y1, z0, z1
+**	x0, y0, x1, y1, z0, z1, col0, col1
 */
 
 void	*line_draw(t_frame *map, int x, int y, int flag)
 {
 	int	*crds;
-	int	col;
 	int i;
 
 	i = -1;
-	if (!(crds = (int *)malloc(sizeof(int) * 6)))
+	if (!(crds = (int *)malloc(sizeof(int) * 8)))
 		return (NULL);
 	crds[0] = x;
 	crds[1] = y;
@@ -32,12 +31,17 @@ void	*line_draw(t_frame *map, int x, int y, int flag)
 	crds[3] = (y + ((flag == 0) ? 0 : 1));
 	crds[4] = map->mxy[crds[1]][crds[0]];
 	crds[5] = map->mxy[crds[3]][crds[2]];
+	crds[6] = ((crds[4] == 0) ? 0xffff00 : 0xffff00);
+	crds[7] = ((crds[5] == 0) ? 0xffff00 : 0xffff00);
 	while (++i < 4)
 		crds[i] *= map->scale;
 	crds = projection(crds, map);
-	crds = rotation_and_shift(crds, map);
-	col = ((map->mxy[y][x]) ? 0xffff00 : 0x00ffff);
-	return (bresenham(map, crds, col));
+	crds[0] += map->sh_x;
+	crds[1] += map->sh_y;
+	crds[2] += map->sh_x;
+	crds[3] += map->sh_y;
+	// ft_printf("line -> %d %d %d %d\n", crds[4], crds[5], crds[6], crds[7]);
+	return (bresenham(map, crds));
 }
 
 int		diff_direction(int diff_var)
@@ -69,17 +73,17 @@ int		diff_direction(int diff_var)
 **	ITER
 **	x, y, dir, accretion, z
 **	DATA
-**	dx, dy, dxabs, dyabs, col0, col1
+**	dx, dy, dxabs, dyabs
 */
 
-void	*bresenham(t_frame *map, int *crds, int col)
+void	*bresenham(t_frame *map, int *crds)
 {
 	int	*data;
 	int	*iter;
 
 	if (!(iter = (int *)malloc(sizeof(int) * 5)))
 		return (NULL);
-	if (!(data = (int *)malloc(sizeof(int) * 6)))
+	if (!(data = (int *)malloc(sizeof(int) * 4)))
 		return (NULL);
 	iter[0] = crds[0];
 	iter[1] = crds[1];
@@ -89,8 +93,6 @@ void	*bresenham(t_frame *map, int *crds, int col)
 	data[1] = crds[3] - crds[1];
 	data[2] = abs(crds[2] - crds[0]);
 	data[3] = abs(crds[3] - crds[1]);
-	data[4] = ((col == 0xffff00) ? 0xffff00 : 0x00ffff);
-	data[5] = ((col == 0xffff00) ? 0xffff00 : 0x00ffff);
 	if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
 		return (bresenham_dx(map, crds, iter, data));
 	else
@@ -108,10 +110,13 @@ void	*bresenham(t_frame *map, int *crds, int col)
 
 void	*bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 {
+	// int color;
+
 	iter[2] = diff_direction(data[1]);
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[4]);
+		// color = get_color(crds, iter, data, 0);
+		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[7]);
 		iter[3] += data[3];
 		if (iter[3] > data[2])
 		{
@@ -125,10 +130,13 @@ void	*bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 
 void	*bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 {
+	// int color;
+
 	iter[2] = diff_direction(data[0]);
 	while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	{
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[4]);
+		// color = get_color(crds, iter, data, 1);
+		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], data[7]);
 		iter[3] += data[2];
 		if (iter[3] > data[3])
 		{
