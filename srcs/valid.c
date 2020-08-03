@@ -53,10 +53,7 @@ void	*validation(t_frame *map, char *file_name)
 		free(str);
 	}
 	else
-	{
-		ft_printf("There's been problem with openning input file\n");
 		return (NULL);
-	}
 	if (!(parse_list(map, head)))
 		return (NULL);
 	ft_lstdel(&head, del_func);
@@ -84,7 +81,7 @@ void	*parse_list(t_frame *map, t_list *head)
 		if (!(map->mxy[++i] = (int *)malloc(sizeof(int) * map->wh)))
 			return (NULL);
 		while (strs[++c])
-			map->mxy[i][c] = ft_atoi(strs[c]);
+			map->mxy[i][c] = ft_atoi(strs[c]) * 10;
 		strs = ft_free_split(strs, -1);
 		temp = temp->prev;
 	}
@@ -99,20 +96,4 @@ void	*parse_list_init(t_frame *map, t_list *head, t_list **temp)
 	if (!(map->mxy = (int **)malloc(sizeof(int *) * map->ht)))
 		return (NULL);
 	return (*temp);
-}
-
-void	print_frame(t_frame *map)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = -1;
-	while (++i < map->ht)
-	{
-		j = -1;
-		while (++j < map->wh)
-			ft_printf("%2d ", map->mxy[i][j]);
-		ft_printf("\n");
-	}
 }

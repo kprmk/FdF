@@ -16,6 +16,22 @@
 #define W 1000
 #define H 1000
 
+void	print_frame(t_frame *map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (++i < map->ht)
+	{
+		j = -1;
+		while (++j < map->wh)
+			ft_printf("%2d ", map->mxy[i][j]);
+		ft_printf("\n");
+	}
+}
+
 int	errors(int argc)
 {
 	if (argc == 1)

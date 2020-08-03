@@ -27,7 +27,7 @@ typedef struct	s_frame
 	int			scale;
 	int			sh_x;
 	int			sh_y;
-	int			type_proj : 3;
+	int			type_proj;
 	int			angle_iso;
 	int			rotated_axis : 3;
 	int			rotated_angle;

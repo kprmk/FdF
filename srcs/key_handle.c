@@ -37,7 +37,7 @@ void	scale_and_proj(int key, t_frame *map)
 	if (key == 27)
 		map->scale -= dif_scale;
 	if (key == 35)
-		map->type_proj = (map->type_proj + 1) % 3;
+		map->type_proj = (map->type_proj + 1) % 4;
 	if (key == 0)
 		map->angle_iso++;
 	if (key == 1)

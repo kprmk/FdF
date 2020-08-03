@@ -40,7 +40,6 @@ void	*line_draw(t_frame *map, int x, int y, int flag)
 	crds[1] += map->sh_y;
 	crds[2] += map->sh_x;
 	crds[3] += map->sh_y;
-	// ft_printf("line -> %d %d %d %d\n", crds[4], crds[5], crds[6], crds[7]);
 	return (bresenham(map, crds));
 }
 
@@ -114,12 +113,9 @@ void	*bresenham(t_frame *map, int *crds)
 
 void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 {
-	// int color;
-
 	iter[2] = diff_direction(data[1]);
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
-		// color = get_color(crds, iter, data, 0);
 		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], crds[6]);
 		iter[3] += data[3];
 		if (iter[3] > data[2])
@@ -133,12 +129,9 @@ void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 
 void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 {
-	// int color;
-
 	iter[2] = diff_direction(data[0]);
 	while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	{
-		// color = get_color(crds, iter, data, 1);
 		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], crds[6]);
 		iter[3] += data[2];
 		if (iter[3] > data[3])

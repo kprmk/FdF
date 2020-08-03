@@ -65,8 +65,8 @@ int		*ortographic_isometric(int *crds, double angle)
 	crds[2] = (int)((x_pr1 - y_pr1) * cos(angle));
 	crds[3] = (int)((x_pr1 + y_pr1) * sin(angle) - crds[5]);
 	return (crds);
-}
 
+}
 int		*projection(int *crds, t_frame *map)
 {
 	if (map->type_proj == 0)
@@ -75,6 +75,8 @@ int		*projection(int *crds, t_frame *map)
 		return (ortographic_isometric(crds, map->angle_iso * M_PI / 180));
 	else if (map->type_proj == 2)
 		return (ortographic_isometric(crds, 26.57 * M_PI / 180));
+	else if (map->type_proj == 3)
+		return (ortographic_isometric(crds, 0));
 	else
 		return (crds);
 }
