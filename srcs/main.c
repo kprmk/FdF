@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:40 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 12:45:47 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 14:21:54 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ void	print_frame(t_frame *map)
 	{
 		j = -1;
 		while (++j < map->wh)
-			ft_printf("%2d ", map->mxy[i][j]);
+		{
+			if (map->pixs[i][j].col == 0xffffff)
+				ft_printf("%2d ", map->pixs[i][j].z);
+			else
+				ft_printf("%2d,%X ", map->pixs[i][j].z, map->pixs[i][j].col);
+		}
 		ft_printf("\n");
 	}
 }
@@ -58,13 +63,21 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!(validation(map, argv[1])))
 		return (0);
-	print_frame(map);
+	// print_frame(map);
 	map->mlx = mlx_init();
 	map->win = mlx_new_window(map->mlx, W, H, "MBROGG");
 	draw_map(map);
 	mlx_key_hook(map->win, deal_key, map);
 	mlx_loop(map->mlx);
+	// FREEEE PIXS!!!!!!!!!!!!!!!!!!!!!!!
 	free(map);
+
+	// #include <stdio.h>
+	// char str[] = "155,0xFE950C";
+	// if (argc || argv)
+	// 	printf("%d %X\n", get_color_after_comma(str), get_color_after_comma(str));
+	
+	
 	// int color = 0x6A317C;
 	// printf("%X\n", color);
 

@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 13:11:35 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 14:11:22 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@
 **	x0, y0, x1, y1, z0, z1, col0, col1
 */
 
-void	*line_draw(t_frame *map, int x, int y, int flag)
+void	*line_draw(t_frame *map, int j, int i, int fg)
 {
 	int	*crds;
-	int i;
+	int c;
 
-	i = -1;
+	c = -1;
 	if (!(crds = (int *)malloc(sizeof(int) * 8)))
 		return (NULL);
-	crds[0] = x;
-	crds[1] = y;
-	crds[2] = (x + ((flag == 0) ? 1 : 0));
-	crds[3] = (y + ((flag == 0) ? 0 : 1));
-	crds[4] = map->mxy[crds[1]][crds[0]];
-	crds[5] = map->mxy[crds[3]][crds[2]];
-	crds[6] = ((crds[4] == 0) ? 0xffff00 : 0x00ffff);
-	crds[7] = ((crds[5] == 0) ? 0xffff00 : 0x00ffff);
-	while (++i < 4)
-		crds[i] *= map->scale;
+	crds[0] = map->pixs[i][j].x;
+	crds[1] = map->pixs[i][j].y;
+	crds[2] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].x;
+	crds[3] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].y;
+	crds[4] = map->pixs[i][j].z;
+	crds[5] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].z;
+	crds[6] = map->pixs[i][j].col;
+	crds[7] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].col;
+	while (++c < 4)
+		crds[c] *= map->scale;
 	crds = projection(crds, map);
 	crds[0] += map->sh_x;
 	crds[1] += map->sh_y;
@@ -92,9 +92,9 @@ void	*bresenham(t_frame *map, int *crds)
 	data[1] = crds[3] - crds[1];
 	data[2] = abs(crds[2] - crds[0]);
 	data[3] = abs(crds[3] - crds[1]);
-	ft_printf("START################################################\n");
-	ft_printf("%X\t%d %d %d\n", crds[6], (crds[6] >> 16) & 0xff, (crds[6] >> 8) & 0xff, crds[6] & 0xff);
-	ft_printf("%X\t%d %d %d\n", crds[7], (crds[7] >> 16) & 0xff, (crds[7] >> 8) & 0xff, crds[7] & 0xff);
+	// ft_printf("START################################################\n");
+	// ft_printf("%X\t%d %d %d\n", crds[6], (crds[6] >> 16) & 0xff, (crds[6] >> 8) & 0xff, crds[6] & 0xff);
+	// ft_printf("%X\t%d %d %d\n", crds[7], (crds[7] >> 16) & 0xff, (crds[7] >> 8) & 0xff, crds[7] & 0xff);
 	if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
 		bresenham_dx(map, crds, iter, data);
 	else
@@ -119,7 +119,7 @@ void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 	int col;
 
 	iter[2] = diff_direction(data[1]);
-	ft_printf("|%d %d| %d %d %d %d\n", crds[4], crds[5], crds[6], crds[7], data[0], data[1]);
+	// ft_printf("|%d %d| %d %d %d %d\n", crds[4], crds[5], crds[6], crds[7], data[0], data[1]);
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
 		col = get_color(crds, iter, data);

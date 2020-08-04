@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 13:06:04 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 14:24:54 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_frame	*init_frame(t_frame *ipt, int width, int height)
 		return (NULL);
 	ipt->ht = 0;
 	ipt->wh = 0;
-	ipt->mxy = NULL;
+	ipt->pixs = NULL;
 	ipt->scale = 20;
 	ipt->sh_x = width / 4;
 	ipt->sh_y = height / 4;
@@ -61,6 +61,37 @@ void	*validation(t_frame *map, char *file_name)
 	return (map);
 }
 
+int		get_color_after_comma(const char *str)
+{
+	int				i;
+	int				power;
+	unsigned long	res;
+
+	power = 6;
+	i = 0;
+	res = 0;
+	while (i < ft_strlen(str) && str[i] != ',')
+		++i;
+	if (str[i + 1] == '0' && str[i + 2] == 'x')
+	{
+		i += 3;
+		while (power)
+		{
+			if (str[i] >= 'A' && str[i] <= 'F')
+				res = res * 16 + str[i] - 'A' + 10;
+			else if (str[i] >= '0' && str[i] <= '9')
+				res = res * 16 + str[i] - '0';
+			else
+				break;
+			++i;
+			--power;
+		}
+	}
+	else
+		return (-1);
+	return ((int)res);
+}
+
 void	*parse_list(t_frame *map, t_list *head)
 {
 	t_list	*temp;
@@ -78,10 +109,21 @@ void	*parse_list(t_frame *map, t_list *head)
 		if (!map->wh)
 			while (strs[map->wh])
 				map->wh++;
-		if (!(map->mxy[++i] = (int *)malloc(sizeof(int) * map->wh)))
+		if (!(map->pixs[++i] = (t_pix *)malloc(sizeof(t_pix) * map->wh)))
 			return (NULL);
 		while (strs[++c])
-			map->mxy[i][c] = ft_atoi(strs[c]) * 10;
+		{
+			map->pixs[i][c].x = c;
+			map->pixs[i][c].y = i;
+			map->pixs[i][c].z = ft_atoi(strs[c]) * 10;
+			int res = get_color_after_comma(strs[c]);
+			if (res != -1)
+				map->pixs[i][c].col = res;
+			else if (map->pixs[i][c].z)
+				map->pixs[i][c].col = 0x00ffff;
+			else
+				map->pixs[i][c].col = 0xffffff;
+		}
 		strs = ft_free_split(strs, -1);
 		temp = temp->prev;
 	}
@@ -93,7 +135,7 @@ void	*parse_list_init(t_frame *map, t_list *head, t_list **temp)
 	*temp = head;
 	while ((*temp)->next)
 		*temp = (*temp)->next;
-	if (!(map->mxy = (int **)malloc(sizeof(int *) * map->ht)))
+	if (!(map->pixs = (t_pix **)malloc(sizeof(t_pix *) * map->ht)))
 		return (NULL);
 	return (*temp);
 }
