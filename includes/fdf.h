@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 13:28:18 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 14:47:48 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ typedef struct	s_frame
 	int			angle_iso;
 	int			rotated_axis : 3;
 	int			rotated_angle;
+	int			max_z;
 }				t_frame;
 
 
-t_frame			*init_frame(t_frame *ipt, int width, int height);
+t_frame			*init_frame(t_frame *ipt);
 void			*validation(t_frame *map, char *file_name);
 void			*parse_list(t_frame *map, t_list *head);
 void			*parse_list_init(t_frame *map, t_list *head, t_list **temp);

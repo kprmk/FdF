@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:40 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 14:21:54 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 14:49:11 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	main(int argc, char **argv)
 	t_frame	*map;
 
 	map = NULL;
-	if (!(errors(argc)) || !(map = init_frame(map, W, H)))
+	if (!(errors(argc)) || !(map = init_frame(map)))
 		return (0);
 	if (!(validation(map, argv[1])))
 		return (0);
 	// print_frame(map);
+	ft_printf("SIZES %d %d", map->ht, map->wh);
 	map->mlx = mlx_init();
 	map->win = mlx_new_window(map->mlx, W, H, "MBROGG");
 	draw_map(map);

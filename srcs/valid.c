@@ -6,13 +6,13 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 14:24:54 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 14:48:23 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_frame	*init_frame(t_frame *ipt, int width, int height)
+t_frame	*init_frame(t_frame *ipt)
 {
 	if (!(ipt = (t_frame *)malloc(sizeof(t_frame))))
 		return (NULL);
@@ -20,11 +20,12 @@ t_frame	*init_frame(t_frame *ipt, int width, int height)
 	ipt->wh = 0;
 	ipt->pixs = NULL;
 	ipt->scale = 20;
-	ipt->sh_x = width / 4;
-	ipt->sh_y = height / 4;
+	ipt->sh_x = 0;
+	ipt->sh_y = 0;
 	ipt->type_proj = 0;
 	ipt->angle_iso = 30;
 	ipt->rotated_axis = 0;
+	ipt->max_z = 0;
 	return (ipt);
 }
 
@@ -109,12 +110,14 @@ void	*parse_list(t_frame *map, t_list *head)
 		if (!map->wh)
 			while (strs[map->wh])
 				map->wh++;
+		map->sh_x = map->wh * map->scale / 4;
+		map->sh_y = map->ht * map->scale / 4;
 		if (!(map->pixs[++i] = (t_pix *)malloc(sizeof(t_pix) * map->wh)))
 			return (NULL);
 		while (strs[++c])
 		{
-			map->pixs[i][c].x = c;
-			map->pixs[i][c].y = i;
+			map->pixs[i][c].x = c * map->scale + map->sh_x;
+			map->pixs[i][c].y = i * map->scale + map->sh_y;
 			map->pixs[i][c].z = ft_atoi(strs[c]) * 10;
 			int res = get_color_after_comma(strs[c]);
 			if (res != -1)
@@ -122,7 +125,7 @@ void	*parse_list(t_frame *map, t_list *head)
 			else if (map->pixs[i][c].z)
 				map->pixs[i][c].col = 0x00ffff;
 			else
-				map->pixs[i][c].col = 0xffffff;
+				map->pixs[i][c].col = 0xFC7F12; // 0xFC12B6 
 		}
 		strs = ft_free_split(strs, -1);
 		temp = temp->prev;
