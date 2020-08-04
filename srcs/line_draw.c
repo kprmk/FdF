@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/03 13:23:50 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 13:11:35 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	*bresenham(t_frame *map, int *crds)
 	data[2] = abs(crds[2] - crds[0]);
 	data[3] = abs(crds[3] - crds[1]);
 	ft_printf("START################################################\n");
-	ft_printf("%d %d\n", crds[6], crds[7]);
+	ft_printf("%X\t%d %d %d\n", crds[6], (crds[6] >> 16) & 0xff, (crds[6] >> 8) & 0xff, crds[6] & 0xff);
+	ft_printf("%X\t%d %d %d\n", crds[7], (crds[7] >> 16) & 0xff, (crds[7] >> 8) & 0xff, crds[7] & 0xff);
 	if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
 		bresenham_dx(map, crds, iter, data);
 	else
@@ -118,11 +119,11 @@ void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 	int col;
 
 	iter[2] = diff_direction(data[1]);
-	// ft_printf("|%d %d| %d %d\n", crds[4], crds[5], crds[6], crds[7]);
+	ft_printf("|%d %d| %d %d %d %d\n", crds[4], crds[5], crds[6], crds[7], data[0], data[1]);
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
 		col = get_color(crds, iter, data);
-		ft_printf("!!! %d \n", col);
+		// ft_printf("RES -> %X\t%d %d %d\n", col, (col >> 16) & 0xff, (col >> 8) & 	0xff, col & 0xff);
 		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], col);
 		iter[3] += data[3];
 		if (iter[3] > data[2])
@@ -132,6 +133,7 @@ void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 		}
 		iter[0] = (data[0] > 0) ? iter[0] + 1 : iter[0] - 1;
 	}
+	// ft_printf("END###################################################\n");
 }
 
 void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
@@ -139,11 +141,12 @@ void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 	int col;
 
 	iter[2] = diff_direction(data[0]);
-	// ft_printf("|%d %d| %d %d", crds[4], crds[5], crds[6], crds[7]);
+	// ft_printf("###################################################\n");
+	// ft_printf("|%d %d| %d %d\n", crds[4], crds[5], crds[6], crds[7]);	
 	while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	{
 		col = get_color(crds, iter, data);
-		ft_printf("!!! %d \n", col);
+		// ft_printf("!!! %d \n", col);
 		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], col);
 		iter[3] += data[2];
 		if (iter[3] > data[3])
@@ -153,4 +156,5 @@ void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 		}
 		iter[1] = (data[1] > 0) ? iter[1] + 1 : iter[1] - 1;
 	}
+	// ft_printf("###################################################\n");
 }

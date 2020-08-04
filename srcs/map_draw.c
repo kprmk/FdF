@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/03 13:17:09 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 13:17:26 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,6 @@ int		*projection(int *crds, t_frame *map)
 		return (crds);
 }
 
-int		color_formula(int str, int stp, double ratio)
-{
-	return ((int)((1 - ratio) * str + ratio * stp));
-}
-
 // double percent(int start, int end, int current)
 // {
 //     double placement;
@@ -132,28 +127,34 @@ int		color_formula(int str, int stp, double ratio)
 **	dx, dy, dxabs, dyabs, col0, col1
 */
 
+int		color_formula(int str, int stp, double ratio)
+{
+	return ((int)((1 - ratio) * str + ratio * stp));
+}
+
 #include <stdio.h>
 int		get_color(int *crds, int *iter, int *data)
 {
-	int		red;
-	int		green;
-	int		blue;
+	int		rd;
+	int		gn;
+	int		bl;
 	double	ratio;
 
-	printf("col0 %d, col1 %d, x0 %d, y0 %d, x1 %d, y1 %d, curx %d, cury %d ", crds[6], crds[7], crds[0], crds[1], crds[2], crds[3], iter[0], iter[1]);
+	// printf("curx %d, cury %d ", iter[0], iter[1]);
 	if (crds[6] == crds[7])
 		return (crds[6]);
 	if (data[0] > data[1])
-	{
-		if ()
-		ratio = (iter[0] - crds[0]) / (crds[2] - crds[0]);
-		// ft_printf("%f\n", (iter[0] - crds[0]) / (crds[2] - crds[0]));
-	}
+		ratio = (iter[0] - crds[0]) / (float)(crds[2] - crds[0]);
 	else
-		ratio = (iter[1] - crds[1]) / (crds[3] - crds[1]);
-	printf("ratio %f\n", ratio);
-	red = color_formula((data[6] >> 16) & 0xff, (data[7] >> 16) & 0xff, ratio);
-	green = color_formula((data[6] >> 8) & 0xff, (data[7] >> 8) & 0xff, ratio);
-	blue = color_formula(data[6] & 0xff, data[7] & 0xff, ratio);
-	return ((red << 16) | (green << 8) | blue);
+		ratio = (iter[1] - crds[1]) / (float)(crds[3] - crds[1]);
+	// printf(" ratio %f\n", ratio);
+	rd = color_formula((crds[6] >> 16) & 0xff, (crds[7] >> 16) & 0xff, ratio);
+	// ft_printf("RED -> %d\t%d\t%d\n", (data[6] >> 16) & 0xff, (data[7] >> 16) & 0xff, red);
+	gn = color_formula((crds[6] >> 8) & 0xff, (crds[7] >> 8) & 0xff, ratio);
+	// ft_printf("GREEN -> %d\t%d\t%d\n", (data[6] >> 8) & 0xff, (data[7] >> 8) & 0xff, green);
+	bl = color_formula(crds[6] & 0xff, crds[7] & 0xff, ratio);
+	// ft_printf("BLUE -> %d\t%d\t%d\n", (data[6]) & 0xff, (data[7]) & 0xff, blue);
+	// int res = (red << 16) | (green << 8) | blue;
+	// ft_printf("%d\t%X\n", res, res);
+	return ((rd << 16) | (gn << 8) | bl);
 }

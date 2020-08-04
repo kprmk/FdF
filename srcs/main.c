@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:40 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/03 13:18:24 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 12:45:47 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	errors(int argc)
 		return (1);
 }
 
+
 int	main(int argc, char **argv)
 {
 	t_frame	*map;
@@ -64,5 +65,15 @@ int	main(int argc, char **argv)
 	mlx_key_hook(map->win, deal_key, map);
 	mlx_loop(map->mlx);
 	free(map);
+	// int color = 0x6A317C;
+	// printf("%X\n", color);
+
+	// int red = (color >> 16) & 0xff;
+	// int green = (color >> 8) & 0xff;
+	// int blue = color & 0x0000ff;
+	// if (argc || argv)
+	// 	ft_printf("%X -> \nr %d, g %d, b %d\n%X, %X, %X\n", color, red, green, blue, red, green, blue);
+	// int res = red << 16 | green << 8 | blue;
+	// ft_printf("res -> %d\t%X", res, res);
 	return (0);
 }

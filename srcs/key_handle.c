@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/02 23:52:56 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 12:11:19 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	shift_map(int key, t_frame *map)
 	int	shift_step;
 
 	shift_step = 20;
-	if (key == 124)
+	if (key == 65363)
 		map->sh_x += shift_step;
-	if (key == 126)
+	if (key == 65362)
 		map->sh_y -= shift_step;
-	if (key == 125)
+	if (key == 65364)
 		map->sh_y += shift_step;
-	if (key == 123)
+	if (key == 65361)
 		map->sh_x -= shift_step;
 }
 
@@ -32,21 +32,21 @@ void	scale_and_proj(int key, t_frame *map)
 	int	dif_scale;
 
 	dif_scale = 3;
-	if (key == 24)
+	if (key == 61)
 		map->scale += dif_scale;
-	if (key == 27)
+	if (key == 45)
 		map->scale -= dif_scale;
-	if (key == 35)
+	if (key == 112)
 		map->type_proj = (map->type_proj + 1) % 4;
-	if (key == 0)
+	if (key == 97)
 		map->angle_iso++;
-	if (key == 1)
+	if (key == 115)
 		map->angle_iso--;
 }
 
 int		deal_key(int key, t_frame *map)
 {
-	if (key == 53)
+	if (key == 65307)
 	{
 		free(map);
 		exit(0);
