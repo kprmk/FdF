@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 14:48:23 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 21:20:17 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,22 +110,23 @@ void	*parse_list(t_frame *map, t_list *head)
 		if (!map->wh)
 			while (strs[map->wh])
 				map->wh++;
-		map->sh_x = map->wh * map->scale / 4;
-		map->sh_y = map->ht * map->scale / 4;
+		map->sh_x = map->wh * map->scale;
+		map->sh_y = map->ht * map->scale;
 		if (!(map->pixs[++i] = (t_pix *)malloc(sizeof(t_pix) * map->wh)))
 			return (NULL);
 		while (strs[++c])
 		{
-			map->pixs[i][c].x = c * map->scale + map->sh_x;
-			map->pixs[i][c].y = i * map->scale + map->sh_y;
-			map->pixs[i][c].z = ft_atoi(strs[c]) * 10;
+			double angle = 26.57 * M_PI / 180;
+			map->pixs[i][c].z = ft_atoi(strs[c]);
+			map->pixs[i][c].x = (c - i) * cos(angle) * map->scale + map->sh_x; 
+			map->pixs[i][c].y = ((c + i) * sin(angle) - map->pixs[i][c].z) * map->scale + map->sh_y;
 			int res = get_color_after_comma(strs[c]);
 			if (res != -1)
 				map->pixs[i][c].col = res;
 			else if (map->pixs[i][c].z)
 				map->pixs[i][c].col = 0x00ffff;
 			else
-				map->pixs[i][c].col = 0xFC7F12; // 0xFC12B6 
+				map->pixs[i][c].col = 0xFC7F12; // 0xFC12B6
 		}
 		strs = ft_free_split(strs, -1);
 		temp = temp->prev;

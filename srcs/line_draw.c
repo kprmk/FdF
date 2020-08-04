@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 14:41:59 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 21:05:30 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*line_draw(t_frame *map, int j, int i, int fg)
 	crds[5] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].z;
 	crds[6] = map->pixs[i][j].col;
 	crds[7] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].col;
-	crds = projection(crds, map);
+	// crds = projection(crds, map);
 	return (bresenham(map, crds));
 }
 

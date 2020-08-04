@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 14:47:48 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/04 20:55:51 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void			*line_draw(t_frame *map, int x, int y, int flag);
 int				diff_direction(int diff_var);
 void			*bresenham(t_frame *map, int *crds);
 void			bresenham_dx(t_frame *map, int *crds, int *iter, int *data);
-void			
-bresenham_dy(t_frame *map, int *crds, int *iter, int *data);
+void			bresenham_dy(t_frame *map, int *crds, int *iter, int *data);
 
 void			*draw_map(t_frame *map);
 int				*projection(int *crds, t_frame *map);
