@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 20:10:27 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 23:36:57 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
 		col = get_color(crds, iter, data);
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], col);
+		mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
 		iter[3] += data[3];
 		if (iter[3] > data[2])
 		{
@@ -139,7 +139,7 @@ void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 	while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	{
 		col = get_color(crds, iter, data);
-		mlx_pixel_put(map->mlx, map->win, iter[0], iter[1], col);
+		mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
 		iter[3] += data[2];
 		if (iter[3] > data[3])
 		{

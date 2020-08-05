@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 20:56:25 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 00:02:09 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,20 @@ typedef	struct	s_pix
 	int			col;
 }				t_pix;
 
-typedef struct	s_frame
+typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
+	void		*im;
+	char		*im_data;
+}				t_mlx;
+
+typedef struct	s_frame
+{
+	t_mlx		*data;
+	t_pix		**pixs;
 	int			wh;
 	int			ht;
-	t_pix		**pixs;
 	float		scale;
 	float		sh_x;
 	float		sh_y;
@@ -44,7 +51,8 @@ typedef struct	s_frame
 }				t_frame;
 
 
-t_frame			*init_frame(t_frame *ipt);
+t_frame			*init_frame(t_frame *map);
+void			*init_data_mlx(t_frame *map, int w, int h);
 void			*validation(t_frame *map, char *file_name);
 void			*parse_list(t_frame *map, t_list *head);
 int				get_color_after_comma(const char *str);

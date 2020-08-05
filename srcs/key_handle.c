@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 20:42:35 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 23:38:58 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,13 @@ int		deal_key(int key, t_frame *map)
 	map->scale = 1;
 	if (key == 65307)
 	{
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		free(map);
 		exit(0);
 	}
 	input_shift_and_scale(key, map);
 	commit_changes_to_map(map, 0);
-	mlx_clear_window(map->mlx, map->win);
+	mlx_clear_window(map->data->mlx, map->data->win);
 	draw_map(map);
 	return (0);
 }
