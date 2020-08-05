@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 23:38:58 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 00:34:07 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,12 @@ void	commit_changes_to_map(t_frame *map, int flag)
 
 int		deal_key(int key, t_frame *map)
 {
+	// int	bp;
+	// int	sl;
+	// int	en;
+	int	i;
+
+	i = -1;
 	map->sh_x = 0;
 	map->sh_y = 0;
 	map->sum_scale += (map->scale - 1);
@@ -114,6 +120,13 @@ int		deal_key(int key, t_frame *map)
 	input_shift_and_scale(key, map);
 	commit_changes_to_map(map, 0);
 	mlx_clear_window(map->data->mlx, map->data->win);
+	while (++i < 3 + 1000 * 4 * 1000)
+		map->data->im_data[i] = 0;
+	// mlx_destroy_image(map->data->mlx, map->data->im);
+	// if (!(map->data->im = mlx_new_image(map->data->mlx, 1000, 1000)))
+		// return (-1);
+	// if (!(map->data->im_data = mlx_get_data_addr(map->data->im, &bp, &sl, &en)))
+		// return (-1);
 	draw_map(map);
 	return (0);
 }

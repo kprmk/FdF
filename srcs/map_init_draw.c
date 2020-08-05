@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 00:02:49 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 00:16:00 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void	*draw_map(t_frame *map)
 		}
 		++i;
 	}
+	mlx_put_image_to_window(map->data->mlx, map->data->win, map->data->im, 0, 0);
 	return (NULL);
 }

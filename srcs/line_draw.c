@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 23:36:57 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 00:47:17 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 **	CRDS
-**	x0, y0, x1, y1, z0, z1, col0, col1
+**	x0, y0, x1, y1, col0, col1
 */
 
 void	*line_draw(t_frame *map, int j, int i, int fg)
@@ -69,7 +69,7 @@ int		diff_direction(int diff_var)
 **	D = -0.5 * dx + dy
 **	############################################################
 **	CRDS
-**	x0, y0, x1, y1
+**	x0, y0, x1, y1, col0, col1
 **	ITER
 **	x, y, dir, accretion, z
 **	DATA
@@ -103,9 +103,61 @@ void	*bresenham(t_frame *map, int *crds)
 	return (map);
 }
 
+void	put_pix_on_pic(t_frame *map, int x, int y, int col)
+{
+	int	index;
+
+	if (x < 1000 && x > 0 && y > 0 && y < 1000)
+	{
+		index = (x << 2) + (y << 2) * 1000;
+		map->data->im_data[index] = col;
+		map->data->im_data[index + 1] = col >> 8;
+		map->data->im_data[index + 2] = col >> 16;
+	}
+}
+
 /*
 **	CRDS
-**	x0, y0, x1, y1
+**	x0, y0, x1, y1, col0, col1
+**	ITER
+**	x, y, dir, accretion, z
+**	DATA
+**	dx, dy, dxabs, dyabs, col
+*/
+
+void	draw_line(t_frame *map, int *crds)
+{
+	t_pix	temp;
+	char	sign_x;
+	char	sign_y;
+	int		error[2];
+
+	temp.x_p = ft_abs(crds[2] - crds[0]);
+	temp.y_p = ft_abs(crds[3] - crds[1]);
+	sign_x = crds[0] < crds[2] ? 1 : -1;
+	sign_y = crds[1] < crds[3] ? 1 : -1;
+	error[0] = temp.x_p - temp.y_p;
+	temp.x = crds[0];
+	temp.y = crds[1];
+	while (temp.x != crds[2] || temp.y != crds[3])
+	{
+		put_pixel(map, temp.x, temp.y, get_color(cur, f, s, delta));
+		if ((error[1] = error[0] * 2) > -delta.y)
+		{
+			error[0] -= delta.y;
+			cur.x += sign.x;
+		}
+		if (error[1] < delta.x)
+		{
+			error[0] += delta.x;
+			cur.y += sign.y;
+		}
+	}
+}
+
+/*
+**	CRDS
+**	x0, y0, x1, y1, col0, col1
 **	ITER
 **	x, y, dir, accretion, z
 **	DATA
@@ -120,7 +172,8 @@ void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 	while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	{
 		col = get_color(crds, iter, data);
-		mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
+		// mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
+		put_pix_on_pic(map, iter[0], iter[1], col);
 		iter[3] += data[3];
 		if (iter[3] > data[2])
 		{
@@ -139,7 +192,8 @@ void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 	while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	{
 		col = get_color(crds, iter, data);
-		mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
+		// mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
+		put_pix_on_pic(map, iter[0], iter[1], col);
 		iter[3] += data[2];
 		if (iter[3] > data[3])
 		{
