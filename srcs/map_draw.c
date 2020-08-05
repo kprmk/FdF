@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 21:06:22 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 19:28:44 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,6 @@ int		*projection(int *crds, t_frame *map)
 		return (ortographic_isometric(crds, 26.57 * M_PI / 180));
 	else if (map->type_proj == 1)
 		return (ortographic_isometric(crds, map->angle_iso * M_PI / 180));
-	else if (map->type_proj == 2)
-		return (ortographic_isometric(crds, 90 * M_PI / 180));
-	else if (map->type_proj == 3)
-		return (ortographic_isometric(crds, 0));
 	else
 		return (crds);
 }

@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 17:08:36 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 19:23:51 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_frame	*init_frame(t_frame *ipt)
 	ipt->sh_y = 0;
 	ipt->type_proj = 0;
 	ipt->angle_iso = 30;
-	ipt->rotated_axis = 0;
 	ipt->max_z = 0;
 	return (ipt);
 }
@@ -80,6 +79,8 @@ int		get_color_after_comma(const char *str)
 		{
 			if (str[i] >= 'A' && str[i] <= 'F')
 				res = res * 16 + str[i] - 'A' + 10;
+			else if (str[i] >= 'a' && str[i] <= 'f')
+				res = res * 16 + str[i] - 'f' + 10;
 			else if (str[i] >= '0' && str[i] <= '9')
 				res = res * 16 + str[i] - '0';
 			else
@@ -105,12 +106,13 @@ void	get_scale_and_shift(t_frame *map)
 	else if (map->max_z <= 50)
 	{
 		ft_printf("#######################\n");
-		map->scale = 10;
-		map->sh_x = map->wh * map->scale * 2.5; 
-		map->sh_y = map->ht * map->scale * 3;
+		map->scale = ((map->wh <= 20) ? 10 : 3);;
+		map->sh_x = map->wh * map->scale * ((map->wh <= 20) ? 2.5 : 0.7);
+		map->sh_y = map->ht * map->scale * ((map->wh <= 20) ? 3 : 1);
 	}
 	else
 	{
+		ft_printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 		map->scale = 1;
 		map->sh_x = map->wh; 
 		map->sh_y = map->ht / 2;
@@ -147,10 +149,18 @@ void	*parse_list(t_frame *map, t_list *head)
 			int res = get_color_after_comma(strs[c]);
 			if (res != -1)
 				map->pixs[i][c].col = res;
-			else if (map->pixs[i][c].z)
-				map->pixs[i][c].col = 0x00ffff;
+			else if (map->pixs[i][c].z == 0)
+				map->pixs[i][c].col = 0xFC7F12;
+			else if (map->pixs[i][c].z < 0)
+				map->pixs[i][c].col = 0xDE5C1B;
+			else if (map->pixs[i][c].z <= 10)
+				map->pixs[i][c].col = 0x00cccc;
+			else if (map->pixs[i][c].z < 20)
+				map->pixs[i][c].col = 0xFC12B6;
+			else if (map->pixs[i][c].z > 20)
+				map->pixs[i][c].col = 0xff0ff0;
 			else
-				map->pixs[i][c].col = 0xFC7F12; // 0xFC12B6
+				map->pixs[i][c].col = 0xffffff;
 		}
 		strs = ft_free_split(strs, -1);
 		temp = temp->prev;

@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 17:01:25 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 19:17:22 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ typedef struct	s_frame
 	float		sh_y;
 	int			type_proj;
 	int			angle_iso;
-	int			rotated_axis : 3;
-	int			rotated_angle;
+	float		sum_scale;
 	int			max_z;
 }				t_frame;
 
