@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 21:20:17 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 16:49:32 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,16 @@ int		get_color_after_comma(const char *str)
 	return ((int)res);
 }
 
+// void	get_scale_and_shift(t_frame *map)
+// {
+// 	if (map->max_z < 10)
+// 		map->scale = 20;
+// 	else if (map->max_z < 50)
+// 		map->scale = 10;
+// 	else
+// 		map->scale = 5;
+// }
+
 void	*parse_list(t_frame *map, t_list *head)
 {
 	t_list	*temp;
@@ -110,8 +120,12 @@ void	*parse_list(t_frame *map, t_list *head)
 		if (!map->wh)
 			while (strs[map->wh])
 				map->wh++;
+		// if (map->wh > 15 || map->ht > 15)
+			// map->scale = 15;
 		map->sh_x = map->wh * map->scale;
 		map->sh_y = map->ht * map->scale;
+		// map->sh_x = 300;
+		// map->sh_y = 300;
 		if (!(map->pixs[++i] = (t_pix *)malloc(sizeof(t_pix) * map->wh)))
 			return (NULL);
 		while (strs[++c])
@@ -120,6 +134,10 @@ void	*parse_list(t_frame *map, t_list *head)
 			map->pixs[i][c].z = ft_atoi(strs[c]);
 			map->pixs[i][c].x = (c - i) * cos(angle) * map->scale + map->sh_x; 
 			map->pixs[i][c].y = ((c + i) * sin(angle) - map->pixs[i][c].z) * map->scale + map->sh_y;
+			// map->pixs[i][c].x = (c - i) * cos(angle);
+			// map->pixs[i][c].y = (c + i) * sin(angle) - map->pixs[i][c].z;
+			if (map->max_z < map->pixs[i][c].z)
+				map->max_z = map->pixs[i][c].z;
 			int res = get_color_after_comma(strs[c]);
 			if (res != -1)
 				map->pixs[i][c].col = res;
@@ -131,6 +149,8 @@ void	*parse_list(t_frame *map, t_list *head)
 		strs = ft_free_split(strs, -1);
 		temp = temp->prev;
 	}
+	// ft_printf("!!!!!!1 %d %d %f\n", map->sh_x, map->sh_y, map->scale);
+	// commit_changes_to_map(map, 1);
 	return (map);
 }
 

@@ -14,7 +14,7 @@
                 "trace": false
             },
             "showDisplayString": false,
-            "args": ["map/42.fdf"],
+            "args": ["21_maps/42.fdf"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],

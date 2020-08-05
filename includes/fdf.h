@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/04 20:55:51 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 16:49:05 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 typedef	struct	s_pix
 {
-	int			x;
-	int			y;
+	float			x;
+	float			y;
 	int			z;
 	int			col;
 }				t_pix;
@@ -32,7 +32,7 @@ typedef struct	s_frame
 	int			wh;
 	int			ht;
 	t_pix		**pixs;
-	int			scale;
+	float		scale;
 	int			sh_x;
 	int			sh_y;
 	int			type_proj;
@@ -62,5 +62,7 @@ int				*projection(int *crds, t_frame *map);
 
 int				deal_key(int key, t_frame *map);
 int				get_color(int *crds, int *iter, int *data);
+
+void			commit_changes_to_map(t_frame *map, int flag);
 
 #endif
