@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 19:54:12 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 20:56:25 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ typedef struct	s_frame
 t_frame			*init_frame(t_frame *ipt);
 void			*validation(t_frame *map, char *file_name);
 void			*parse_list(t_frame *map, t_list *head);
-void			*parse_list_init(t_frame *map, t_list *head, t_list **temp);
-void			print_frame(t_frame *map);
-int				ft_max(int a, int b);
-int				ft_mod(int a);
+int				get_color_after_comma(const char *str);
 
 void			*line_draw(t_frame *map, int x, int y, int flag);
 int				diff_direction(int diff_var);
@@ -65,6 +62,7 @@ int				deal_key(int key, t_frame *map);
 int				get_color(int *crds, int *iter, int *data);
 
 void			commit_changes_to_map(t_frame *map, int flag);
-void			get_scale_and_shift(t_frame *map);
+void			free_map(t_frame **map);
+
 
 #endif

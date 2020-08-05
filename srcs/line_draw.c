@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 20:03:48 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 20:10:27 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 void	*line_draw(t_frame *map, int j, int i, int fg)
 {
 	int	*crds;
+
 	if (!(crds = (int *)malloc(sizeof(int) * 6)))
 		return (NULL);
 	if (map->type_proj == 0)

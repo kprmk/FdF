@@ -6,13 +6,13 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 20:08:31 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 20:42:35 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	shift_map(int key, t_frame *map)
+void	input_shift_and_scale(int key, t_frame *map)
 {
 	int shift;
 
@@ -25,10 +25,6 @@ void	shift_map(int key, t_frame *map)
 		map->sh_y = shift;
 	if (key == 65361)
 		map->sh_x = -shift;
-}
-
-void	scale_and_proj(int key, t_frame *map)
-{
 	if (key == 61 && map->sum_scale < 1)
 		map->scale = 1.4;
 	if (key == 45 && map->sum_scale > -1)
@@ -46,12 +42,34 @@ void	commit_changes_to_map_body(t_frame *map, int flag, int i, int j)
 	if (map->type_proj == 0)
 	{
 		map->pixs[i][j].x = map->pixs[i][j].x * map->scale + map->sh_x;
-		map->pixs[i][j].y = map->pixs[i][j].y * map->scale + map->sh_y;	
+		map->pixs[i][j].y = map->pixs[i][j].y * map->scale + map->sh_y;
 	}
 	if (map->type_proj != 0 || flag != 0)
 	{
 		map->pixs[i][j].x_p = map->pixs[i][j].x_p * map->scale + map->sh_x;
-		map->pixs[i][j].y_p = map->pixs[i][j].y_p * map->scale + map->sh_y;	
+		map->pixs[i][j].y_p = map->pixs[i][j].y_p * map->scale + map->sh_y;
+	}
+}
+
+void	get_scale_and_shift(t_frame *map)
+{
+	if (map->max_z <= 20 && map->ht < 50)
+	{
+		map->scale = 20;
+		map->sh_x = map->wh * map->scale * ((map->wh <= 10) ? 2.5 : 1);
+		map->sh_y = map->ht * map->scale * ((map->wh <= 10) ? 2.5 : 1.5);
+	}
+	else if (map->max_z <= 50)
+	{
+		map->scale = ((map->wh <= 20) ? 10 : 3);
+		map->sh_x = map->wh * map->scale * ((map->wh <= 20) ? 2.5 : 0.7);
+		map->sh_y = map->ht * map->scale * ((map->wh <= 20) ? 3 : 1);
+	}
+	else
+	{
+		map->scale = 1;
+		map->sh_x = map->wh;
+		map->sh_y = map->ht / 2;
 	}
 }
 
@@ -92,8 +110,7 @@ int		deal_key(int key, t_frame *map)
 		free(map);
 		exit(0);
 	}
-	shift_map(key, map);
-	scale_and_proj(key, map);
+	input_shift_and_scale(key, map);
 	commit_changes_to_map(map, 0);
 	mlx_clear_window(map->mlx, map->win);
 	draw_map(map);
