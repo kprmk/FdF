@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 16:49:05 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 17:01:25 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 
 typedef	struct	s_pix
 {
-	float			x;
-	float			y;
-	int			z;
+	float		x;
+	float		y;
+	float		z;
 	int			col;
 }				t_pix;
 
@@ -33,8 +33,8 @@ typedef struct	s_frame
 	int			ht;
 	t_pix		**pixs;
 	float		scale;
-	int			sh_x;
-	int			sh_y;
+	float		sh_x;
+	float		sh_y;
 	int			type_proj;
 	int			angle_iso;
 	int			rotated_axis : 3;
@@ -64,5 +64,6 @@ int				deal_key(int key, t_frame *map);
 int				get_color(int *crds, int *iter, int *data);
 
 void			commit_changes_to_map(t_frame *map, int flag);
+void			get_scale_and_shift(t_frame *map);
 
 #endif

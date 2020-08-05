@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 16:49:38 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 16:53:55 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,24 @@ void	commit_changes_to_map(t_frame *map, int flag)
 
 	i = -1;
 	j = -1;
-	if (flag)
-		ft_printf("!!!!!!2 %d %d %f\n", map->sh_x, map->sh_y, map->scale);
-	// if (map->sh_x || map->sh_y || map->scale != 1 || flag)
-	// {
-	while (++i < map->ht)
+	if (map->sh_x || map->sh_y || map->scale != 1 || flag)
 	{
-		j = -1;
-		while (++j < map->wh)
+		if (flag)
+			get_scale_and_shift(map);
+		while (++i < map->ht)
 		{
-			// map->pixs[i][j].x = map->pixs[i][j].x + map->sh_x * ((flag) ? 1 : 10);
-			// map->pixs[i][j].y = map->pixs[i][j].y + map->sh_y * ((flag) ? 1 : 10);
-			// map->pixs[i][j].x *= map->scale;
-			// map->pixs[i][j].y *= map->scale;
-			map->pixs[i][j].x = map->pixs[i][j].x * map->scale + map->sh_x;
-			map->pixs[i][j].y = map->pixs[i][j].y * map->scale + map->sh_y;
+			j = -1;
+			while (++j < map->wh)
+			{
+				// map->pixs[i][j].x = map->pixs[i][j].x + map->sh_x * ((flag) ? 1 : 10);
+				// map->pixs[i][j].y = map->pixs[i][j].y + map->sh_y * ((flag) ? 1 : 10);
+				// map->pixs[i][j].x *= map->scale;
+				// map->pixs[i][j].y *= map->scale;
+				map->pixs[i][j].x = map->pixs[i][j].x * map->scale + map->sh_x;
+				map->pixs[i][j].y = map->pixs[i][j].y * map->scale + map->sh_y;
+			}
 		}
 	}
-	// }
 }
 
 /*
