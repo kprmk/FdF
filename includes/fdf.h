@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 19:17:22 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 19:54:12 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef	struct	s_pix
 	float		x;
 	float		y;
 	float		z;
+	int			x_p;
+	int			y_p;
 	int			col;
 }				t_pix;
 

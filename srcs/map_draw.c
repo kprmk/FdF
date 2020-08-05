@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 19:28:44 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 19:40:08 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,21 +100,14 @@ int		get_color(int *crds, int *iter, int *data)
 	int		bl;
 	double	ratio;
 
-	// printf("curx %d, cury %d ", iter[0], iter[1]);
-	if (crds[6] == crds[7])
-		return (crds[6]);
+	if (crds[4] == crds[5])
+		return (crds[4]);
 	if (data[0] > data[1])
 		ratio = (iter[0] - crds[0]) / (float)(crds[2] - crds[0]);
 	else
 		ratio = (iter[1] - crds[1]) / (float)(crds[3] - crds[1]);
-	// printf(" ratio %f\n", ratio);
-	rd = color_formula((crds[6] >> 16) & 0xff, (crds[7] >> 16) & 0xff, ratio);
-	// ft_printf("RED -> %d\t%d\t%d\n", (data[6] >> 16) & 0xff, (data[7] >> 16) & 0xff, red);
-	gn = color_formula((crds[6] >> 8) & 0xff, (crds[7] >> 8) & 0xff, ratio);
-	// ft_printf("GREEN -> %d\t%d\t%d\n", (data[6] >> 8) & 0xff, (data[7] >> 8) & 0xff, green);
-	bl = color_formula(crds[6] & 0xff, crds[7] & 0xff, ratio);
-	// ft_printf("BLUE -> %d\t%d\t%d\n", (data[6]) & 0xff, (data[7]) & 0xff, blue);
-	// int res = (red << 16) | (green << 8) | blue;
-	// ft_printf("%d\t%X\n", res, res);
+	rd = color_formula((crds[4] >> 16) & 0xff, (crds[5] >> 16) & 0xff, ratio);
+	gn = color_formula((crds[4] >> 8) & 0xff, (crds[5] >> 8) & 0xff, ratio);
+	bl = color_formula(crds[4] & 0xff, crds[5] & 0xff, ratio);
 	return ((rd << 16) | (gn << 8) | bl);
 }

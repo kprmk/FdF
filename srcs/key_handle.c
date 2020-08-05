@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 19:29:12 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 20:08:31 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,25 @@ void	scale_and_proj(int key, t_frame *map)
 	if (key == 45 && map->sum_scale > -1)
 		map->scale = 0.6;
 	if (key == 112)
-		map->type_proj = (map->type_proj + 1) % 3;
+		map->type_proj = ((map->type_proj == 1) ? 0 : 1);
 	if (key == 97)
 		map->angle_iso++;
 	if (key == 115)
 		map->angle_iso--;
+}
+
+void	commit_changes_to_map_body(t_frame *map, int flag, int i, int j)
+{
+	if (map->type_proj == 0)
+	{
+		map->pixs[i][j].x = map->pixs[i][j].x * map->scale + map->sh_x;
+		map->pixs[i][j].y = map->pixs[i][j].y * map->scale + map->sh_y;	
+	}
+	if (map->type_proj != 0 || flag != 0)
+	{
+		map->pixs[i][j].x_p = map->pixs[i][j].x_p * map->scale + map->sh_x;
+		map->pixs[i][j].y_p = map->pixs[i][j].y_p * map->scale + map->sh_y;	
+	}
 }
 
 void	commit_changes_to_map(t_frame *map, int flag)
@@ -56,10 +70,7 @@ void	commit_changes_to_map(t_frame *map, int flag)
 		{
 			j = -1;
 			while (++j < map->wh)
-			{
-				map->pixs[i][j].x = map->pixs[i][j].x * map->scale + map->sh_x;
-				map->pixs[i][j].y = map->pixs[i][j].y * map->scale + map->sh_y;
-			}
+				commit_changes_to_map_body(map, flag, i, j);
 		}
 	}
 	if (flag != 0)
@@ -76,7 +87,6 @@ int		deal_key(int key, t_frame *map)
 	map->sh_y = 0;
 	map->sum_scale += (map->scale - 1);
 	map->scale = 1;
-	ft_printf("SUM_SCALE -> %f\n", map->sum_scale);
 	if (key == 65307)
 	{
 		free(map);

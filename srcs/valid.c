@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 19:23:51 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 19:59:28 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ void	*parse_list(t_frame *map, t_list *head)
 		while (strs[++c])
 		{
 			double angle = 26.57 * M_PI / 180;
+			map->pixs[i][c].x_p = c;
+			map->pixs[i][c].y_p = i;			
 			map->pixs[i][c].z = ft_atoi(strs[c]);
 			map->pixs[i][c].x = (c - i) * cos(angle);
 			map->pixs[i][c].y = (c + i) * sin(angle) - map->pixs[i][c].z;

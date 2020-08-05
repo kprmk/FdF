@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/05 19:30:20 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/05 20:03:48 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,26 @@
 void	*line_draw(t_frame *map, int j, int i, int fg)
 {
 	int	*crds;
-	if (!(crds = (int *)malloc(sizeof(int) * 8)))
+	if (!(crds = (int *)malloc(sizeof(int) * 6)))
 		return (NULL);
-	crds[0] = map->pixs[i][j].x;
-	crds[1] = map->pixs[i][j].y;
-	crds[2] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].x;
-	crds[3] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].y;
-	crds[4] = map->pixs[i][j].z;
-	crds[5] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].z;
-	crds[6] = map->pixs[i][j].col;
-	crds[7] = map->pixs[(i + ((fg == 0) ? 0 : 1))][(j + ((fg == 0) ? 1 : 0))].col;
-	// crds = projection(crds, map);
+	if (map->type_proj == 0)
+	{
+		crds[0] = map->pixs[i][j].x;
+		crds[1] = map->pixs[i][j].y;
+		crds[2] = map->pixs[(i + ((fg) ? 1 : 0))][(j + ((fg) ? 0 : 1))].x;
+		crds[3] = map->pixs[(i + ((fg) ? 1 : 0))][(j + ((fg) ? 0 : 1))].y;
+		crds[4] = map->pixs[i][j].col;
+		crds[5] = map->pixs[(i + ((fg) ? 1 : 0))][(j + ((fg) ? 0 : 1))].col;
+	}
+	else
+	{
+		crds[0] = map->pixs[i][j].x_p;
+		crds[1] = map->pixs[i][j].y_p;
+		crds[2] = map->pixs[(i + ((fg) ? 1 : 0))][(j + ((fg) ? 0 : 1))].x_p;
+		crds[3] = map->pixs[(i + ((fg) ? 1 : 0))][(j + ((fg) ? 0 : 1))].y_p;
+		crds[4] = map->pixs[i][j].col;
+		crds[5] = map->pixs[(i + ((fg) ? 1 : 0))][(j + ((fg) ? 0 : 1))].col;
+	}
 	return (bresenham(map, crds));
 }
 
