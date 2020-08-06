@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 00:05:53 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 10:53:07 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ int				get_color(int *crds, int *iter, int *data);
 
 void			commit_changes_to_map(t_frame *map, int flag);
 void			free_map(t_frame **map);
+
+void	br_common_algo(t_frame *map, int *crds, int *iter, int *data);
+
 
 #endif
