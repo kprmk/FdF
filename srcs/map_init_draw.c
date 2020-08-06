@@ -6,7 +6,7 @@
 /*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 18:01:02 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/08/06 19:01:27 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_frame	*init_frame(t_frame *map)
 {
 	if (!(map = (t_frame *)malloc(sizeof(t_frame))))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	map->scale = 20;
 	map->sh_x = 0;
 	map->sh_y = 0;
@@ -33,23 +33,22 @@ t_frame	*init_frame(t_frame *map)
 **	en - endian -> "Endianness" (big-endian / small-endian) ARCH
 */
 
-void	*init_data_mlx(t_frame *map, int w, int h)
+void	init_data_mlx(t_frame *map, int w, int h)
 {
 	int	bp;
 	int	sl;
 	int	en;
 
 	if (!(map->data = (t_mlx *)malloc(sizeof(t_mlx))))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	if (!(map->data->mlx = mlx_init()))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	if (!(map->data->win = mlx_new_window(map->data->mlx, w, h, "MBROGG")))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	if (!(map->data->im = mlx_new_image(map->data->mlx, w, h)))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	if (!(map->data->i_data = mlx_get_data_addr(map->data->im, &bp, &sl, &en)))
-		return (NULL);
-	return (map);
+		urgent_exit("There\'s been mem alloc fail\n");
 }
 
 void	free_map(t_frame **map)
@@ -68,7 +67,7 @@ void	free_map(t_frame **map)
 	*map = NULL;
 }
 
-void	*draw_map(t_frame *map)
+void	draw_map(t_frame *map)
 {
 	int		i;
 	int		j;
@@ -81,16 +80,13 @@ void	*draw_map(t_frame *map)
 		while (j < map->wh)
 		{
 			if (j < map->wh - 1)
-				if (!line_draw(map, j, i, 0))
-					return (NULL);
+				line_draw(map, j, i, 0);
 			if (i < map->ht - 1)
-				if (!line_draw(map, j, i, 1))
-					return (NULL);
+				line_draw(map, j, i, 1);
 			++j;
 		}
 		++i;
 	}
 	temp = map->data->mlx;
 	mlx_put_image_to_window(temp, map->data->win, map->data->im, 0, 0);
-	return (NULL);
 }

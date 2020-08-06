@@ -6,7 +6,7 @@
 /*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 18:08:50 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/08/06 19:05:37 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	del_func(void *to_del, size_t size)
 		free(to_del);
 }
 
-void	*validation(t_frame *map, char *file_name)
+void	validation(t_frame *map, char *file_name)
 {
 	int		fd;
 	char	*str;
@@ -37,22 +37,19 @@ void	*validation(t_frame *map, char *file_name)
 		free(str);
 	}
 	else
-		return (NULL);
-	if (!(parse_list(map, head)))
-		return (NULL);
+		urgent_exit("There\'s been error with openning file\n");
+	parse_list(map, head);
 	ft_lstdel(&head, del_func);
 	close(fd);
-	return (map);
 }
 
-void	*parse_list_init(t_frame *map, t_list *head, t_list **temp)
+void	parse_list_init(t_frame *map, t_list *head, t_list **temp)
 {
 	*temp = head;
 	while ((*temp)->next)
 		*temp = (*temp)->next;
 	if (!(map->pixs = (t_pix **)malloc(sizeof(t_pix *) * map->ht)))
-		return (NULL);
-	return (*temp);
+		urgent_exit("There\'s been mem alloc fail\n");
 }
 
 /*
@@ -96,7 +93,7 @@ void	parse_list_body(t_frame *map, int i, int c, char **strs)
 		map->pixs[i][c].col = 0xffffff;
 }
 
-void	*parse_list(t_frame *map, t_list *head)
+void	parse_list(t_frame *map, t_list *head)
 {
 	t_list	*temp;
 	char	**strs;
@@ -104,8 +101,7 @@ void	*parse_list(t_frame *map, t_list *head)
 	int		c;
 
 	i = -1;
-	if (!(parse_list_init(map, head, &temp)))
-		return (NULL);
+	parse_list_init(map, head, &temp);
 	while (temp)
 	{
 		c = -1;
@@ -114,13 +110,11 @@ void	*parse_list(t_frame *map, t_list *head)
 			while (strs[map->wh])
 				map->wh++;
 		if (!(map->pixs[++i] = (t_pix *)malloc(sizeof(t_pix) * map->wh)))
-			return (NULL);
+			urgent_exit("There\'s been mem alloc fail\n");
 		while (strs[++c])
 			parse_list_body(map, i, c, strs);
 		strs = ft_free_split(strs, -1);
 		temp = temp->prev;
 	}
 	commit_changes_to_map(map, 1);
-	ft_printf("zmax %d ymin %d\n", map->max_z, map->min_y);
-	return (map);
 }

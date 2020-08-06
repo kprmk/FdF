@@ -6,7 +6,7 @@
 /*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 17:51:29 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/08/06 19:01:21 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 **	x0, y0, x1, y1, col0, col1
 */
 
-void	*line_draw(t_frame *map, int j, int i, int fg)
+void	line_draw(t_frame *map, int j, int i, int fg)
 {
 	int	*crds;
 
 	if (!(crds = (int *)malloc(sizeof(int) * 6)))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	if (map->type_proj == 0)
 	{
 		crds[0] = map->pixs[i][j].x;
@@ -41,7 +41,7 @@ void	*line_draw(t_frame *map, int j, int i, int fg)
 		crds[4] = map->pixs[i][j].col;
 		crds[5] = map->pixs[(i + ((fg) ? 1 : 0))][(j + ((fg) ? 0 : 1))].col;
 	}
-	return (bresenham(map, crds));
+	bresenham(map, crds);
 }
 
 int		diff_direction(int diff_var)
@@ -76,15 +76,15 @@ int		diff_direction(int diff_var)
 **	dx, dy, dxabs, dyabs
 */
 
-void	*bresenham(t_frame *map, int *crds)
+void	bresenham(t_frame *map, int *crds)
 {
 	int	*data;
 	int	*iter;
 
 	if (!(iter = (int *)malloc(sizeof(int) * 5)))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	if (!(data = (int *)malloc(sizeof(int) * 5)))
-		return (NULL);
+		urgent_exit("There\'s been mem alloc fail\n");
 	data[0] = crds[2] - crds[0];
 	data[1] = crds[3] - crds[1];
 	data[2] = mod(crds[2] - crds[0]);
@@ -99,7 +99,6 @@ void	*bresenham(t_frame *map, int *crds)
 	free(crds);
 	free(iter);
 	free(data);
-	return (map);
 }
 
 void	put_pix_on_pic(t_frame *map, int x, int y, int col)

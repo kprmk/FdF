@@ -6,7 +6,7 @@
 /*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 17:08:04 by mbrogg            #+#    #+#             */
-/*   Updated: 2020/08/06 18:08:00 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/08/06 19:07:09 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,19 @@ void	print_frame(t_frame *map)
 	}
 }
 
-int		errors(int argc)
+void	errors(int argc)
 {
 	if (argc == 1)
-	{
-		ft_printf("There's been no input file\n");
-		return (0);
-	}
+		urgent_exit("There's been no input file\n");
 	else if (argc > 2)
-	{
-		ft_printf("There've been too many input files\n");
-		return (0);
-	}
+		urgent_exit("There've been too many input files\n");
+}
+
+void	urgent_exit(char *s)
+{
+	if (errno == 0)
+		ft_putstr_fd(s, 2);
 	else
-		return (1);
+		perror(s);
+	exit(1);
 }
