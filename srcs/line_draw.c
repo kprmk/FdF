@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 15:11:49 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 17:26:22 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	*bresenham(t_frame *map, int *crds)
 		return (NULL);
 	data[0] = crds[2] - crds[0];
 	data[1] = crds[3] - crds[1];
-	data[2] = abs(crds[2] - crds[0]);
-	data[3] = abs(crds[3] - crds[1]);
-	data[4] = ((abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1])) ? 1 : 0);
+	data[2] = mod(crds[2] - crds[0]);
+	data[3] = mod(crds[3] - crds[1]);
+	data[4] = ((mod(crds[2] - crds[0]) >= mod(crds[3] - crds[1])) ? 1 : 0);
 	iter[0] = crds[0];
 	iter[1] = crds[1];
 	iter[2] = diff_direction(data[1]);
@@ -109,9 +109,9 @@ void	put_pix_on_pic(t_frame *map, int x, int y, int col)
 	if (x < 1000 && x > 0 && y > 0 && y < 1000)
 	{
 		index = (x << 2) + (y << 2) * 1000;
-		map->data->im_data[index] = col;
-		map->data->im_data[index + 1] = col >> 8;
-		map->data->im_data[index + 2] = col >> 16;
+		map->data->i_data[index] = col;
+		map->data->i_data[index + 1] = col >> 8;
+		map->data->i_data[index + 2] = col >> 16;
 	}
 }
 
@@ -123,42 +123,6 @@ void	put_pix_on_pic(t_frame *map, int x, int y, int col)
 **	DATA
 **	dx, dy, dxabs, dyabs, col
 */
-
-void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
-{
-	int col;
-
-	while (iter[0] != crds[2])
-	{
-		col = get_color(crds, iter, data);
-		put_pix_on_pic(map, iter[0], iter[1], col);
-		iter[4] += data[3];
-		if (iter[4] > data[2])
-		{
-			iter[4] -= data[2];
-			iter[1] += iter[2];
-		}
-		iter[0] += iter[3];
-	}
-}
-
-void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
-{
-	int col;
-
-	while (iter[1] != crds[3])
-	{
-		col = get_color(crds, iter, data);
-		put_pix_on_pic(map, iter[0], iter[1], col);
-		iter[4] += data[2];
-		if (iter[4] > data[3])
-		{
-			iter[4] -= data[3];
-			iter[0] += iter[3];
-		}
-		iter[1] += iter[2];
-	}
-}
 
 void	bresenham_dx_dy(t_frame *map, int *crds, int *iter, int *data)
 {

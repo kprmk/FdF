@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 16:16:29 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 17:26:30 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ void	input_shift(int key, t_frame *map)
 	shift = 30;
 	if (map->type_proj == 0)
 	{
-		if (key == 65363 && map->pixs[0][map->wh - 1].x < W)
+		if (key == 124 && map->pixs[0][map->wh - 1].x < W)
 			map->sh_x = shift;
-		if (key == 65362 && map->pixs[0][0].y > 0)
+		if (key == 126 && map->pixs[0][0].y > 0)
 			map->sh_y = -shift;
-		if (key == 65364 && map->pixs[map->ht - 1][map->wh - 1].y < H)
+		if (key == 125 && map->pixs[map->ht - 1][map->wh - 1].y < H)
 			map->sh_y = shift;
-		if (key == 65361 && map->pixs[map->ht - 1][0].x > 0)
+		if (key == 123 && map->pixs[map->ht - 1][0].x > 0)
 			map->sh_x = -shift;
 	}
 	else
 	{
-		if (key == 65363 && map->pixs[0][map->wh - 1].x_p < W)
+		if (key == 124 && map->pixs[0][map->wh - 1].x_p < W)
 			map->sh_x = shift;
-		if (key == 65362 && map->pixs[0][0].y_p > 0)
+		if (key == 126 && map->pixs[0][0].y_p > 0)
 			map->sh_y = -shift;
-		if (key == 65364 && map->pixs[map->ht - 1][map->wh - 1].y_p < H)
+		if (key == 125 && map->pixs[map->ht - 1][map->wh - 1].y_p < H)
 			map->sh_y = shift;
-		if (key == 65361 && map->pixs[map->ht - 1][0].x_p > 0)
+		if (key == 123 && map->pixs[map->ht - 1][0].x_p > 0)
 			map->sh_x = -shift;
 	}
 }
@@ -45,20 +45,20 @@ void	input_shift_and_scale(int key, t_frame *map)
 {
 	input_shift(key, map);
 	if (map->type_proj == 0)
-	{		
-		if (key == 61 && (abs(map->pixs[0][0].x - map->pixs[0][1].x) < 50))
+	{
+		if (key == 24 && (mod(map->pixs[0][0].x - map->pixs[0][1].x) < 50))
 			map->scale = 1.4;
-		if (key == 45 && (abs(map->pixs[0][0].x - map->pixs[0][1].x) > 10))
+		if (key == 27 && (mod(map->pixs[0][0].x - map->pixs[0][1].x) > 10))
 			map->scale = 0.6;
 	}
 	else
 	{
-		if (key == 61 && (abs(map->pixs[0][0].x_p - map->pixs[0][1].x_p) < 50))
+		if (key == 24 && (mod(map->pixs[0][0].x_p - map->pixs[0][1].x_p) < 50))
 			map->scale = 1.4;
-		if (key == 45 && (abs(map->pixs[0][0].x_p - map->pixs[0][1].x_p) > 10))
+		if (key == 27 && (mod(map->pixs[0][0].x_p - map->pixs[0][1].x_p) > 10))
 			map->scale = 0.6;
 	}
-	if (key == 112)
+	if (key == 35)
 		map->type_proj = ((map->type_proj == 1) ? 0 : 1);
 	if (key == 97)
 		map->angle_iso++;
@@ -75,33 +75,8 @@ void	commit_changes_to_map_body(t_frame *map, int flag, int i, int j)
 	}
 	if (map->type_proj != 0 || flag != 0)
 	{
-		// if (flag == 0)
-			// ft_printf("COMMIT PAR\n");
-
 		map->pixs[i][j].x_p = map->pixs[i][j].x_p * map->scale + map->sh_x;
 		map->pixs[i][j].y_p = map->pixs[i][j].y_p * map->scale + map->sh_y;
-	}
-}
-
-void	get_scale_and_shift(t_frame *map)
-{
-	if (map->max_z <= 20 && map->ht < 50)
-	{
-		map->scale = 20;
-		map->sh_x = map->wh * map->scale * ((map->wh <= 10) ? 2.5 : 1);
-		map->sh_y = map->ht * map->scale * ((map->wh <= 10) ? 2.5 : 1.5);
-	}
-	else if (map->max_z <= 50)
-	{
-		map->scale = ((map->wh <= 20) ? 10 : 3);
-		map->sh_x = map->wh * map->scale * ((map->wh <= 20) ? 2.5 : 0.7);
-		map->sh_y = map->ht * map->scale * ((map->wh <= 20) ? 3 : 1);
-	}
-	else
-	{
-		map->scale = 1;
-		map->sh_x = map->wh;
-		map->sh_y = map->ht / 2;
 	}
 }
 
@@ -133,14 +108,14 @@ int		deal_key(int key, t_frame *map)
 	map->sh_y = 0;
 	map->sum_scale += (map->scale - 1);
 	map->scale = 1;
-	if (key == 65307)
+	if (key == 53)
 	{
 		free_map(&map);
 		exit(0);
 	}
 	input_shift_and_scale(key, map);
 	commit_changes_to_map(map, 0);
-	ft_bzero(map->data->im_data, 3 + W * 4 * W);
+	ft_bzero(map->data->i_data, 3 + W * 4 * W);
 	draw_map(map);
 	return (0);
 }

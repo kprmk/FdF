@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 15:49:47 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 17:28:14 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_mlx
 	void		*mlx;
 	void		*win;
 	void		*im;
-	char		*im_data;
+	char		*i_data;
 }				t_mlx;
 
 typedef struct	s_frame
@@ -53,12 +53,14 @@ typedef struct	s_frame
 	int			max_z;
 }				t_frame;
 
-
 t_frame			*init_frame(t_frame *map);
 void			*init_data_mlx(t_frame *map, int w, int h);
 void			*validation(t_frame *map, char *file_name);
 void			*parse_list(t_frame *map, t_list *head);
 int				get_color_after_comma(const char *str);
+void			get_scale_and_shift(t_frame *map);
+void			print_frame(t_frame *map);
+int				errors(int argc);
 
 void			*line_draw(t_frame *map, int x, int y, int flag);
 int				diff_direction(int diff_var);
@@ -75,8 +77,5 @@ int				get_color(int *crds, int *iter, int *data);
 
 void			commit_changes_to_map(t_frame *map, int flag);
 void			free_map(t_frame **map);
-
-void	br_common_algo(t_frame *map, int *crds, int *iter, int *data);
-
 
 #endif

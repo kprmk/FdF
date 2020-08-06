@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init_draw.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 15:30:32 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 17:04:43 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*init_data_mlx(t_frame *map, int w, int h)
 		return (NULL);
 	if (!(map->data->im = mlx_new_image(map->data->mlx, w, h)))
 		return (NULL);
-	if (!(map->data->im_data = mlx_get_data_addr(map->data->im, &bp, &sl, &en)))
+	if (!(map->data->i_data = mlx_get_data_addr(map->data->im, &bp, &sl, &en)))
 		return (NULL);
 	return (map);
 }
@@ -70,8 +70,9 @@ void	free_map(t_frame **map)
 
 void	*draw_map(t_frame *map)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	void	*temp;
 
 	i = 0;
 	while (i < map->ht)
@@ -89,6 +90,7 @@ void	*draw_map(t_frame *map)
 		}
 		++i;
 	}
-	mlx_put_image_to_window(map->data->mlx, map->data->win, map->data->im, 0, 0);
+	temp = map->data->mlx;
+	mlx_put_image_to_window(temp, map->data->win, map->data->im, 0, 0);
 	return (NULL);
 }

@@ -4,8 +4,8 @@ FLAGS = -g -Wall -Wextra -Werror
 INCLUDE_FOLDERS := -I includes/
 SOURCES_FOLDER  := srcs/
 OBJECTS_FOLDER  := objs/
-MLX := -lm -L/usr/lib/X11 -lmlx -lXext -lX11
-# MLX := -lmlx -framework OpenGL -framework AppKit
+# MLX := -lm -L/usr/lib/X11 -lmlx -lXext -lX11
+MLX := -lmlx -framework OpenGL -framework AppKit
 
 vpath %.c srcs
 SOURCES :=	libft/aux.c \
@@ -83,6 +83,7 @@ SOURCES :=	libft/aux.c \
 			libft/ft_strsplit.c \
 			libft/ft_free_split.c \
 			libft/ft_itoa.c \
+			libft/abs.c \
 			libft/ft_putchar_fd.c \
 			libft/ft_putstr_fd.c \
 			libft/ft_putendl_fd.c \
