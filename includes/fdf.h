@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 10:53:07 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 14:24:01 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int				get_color_after_comma(const char *str);
 void			*line_draw(t_frame *map, int x, int y, int flag);
 int				diff_direction(int diff_var);
 void			*bresenham(t_frame *map, int *crds);
+void			bresenham_dx_dy(t_frame *map, int *crds, int *iter, int *data);
 void			bresenham_dx(t_frame *map, int *crds, int *iter, int *data);
 void			bresenham_dy(t_frame *map, int *crds, int *iter, int *data);
 

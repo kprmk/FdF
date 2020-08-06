@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 11:20:30 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 14:31:20 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,25 @@ void	*bresenham(t_frame *map, int *crds)
 	int	*data;
 	int	*iter;
 
-	if (!(iter = (int *)malloc(sizeof(int) * 4)))
+	if (!(iter = (int *)malloc(sizeof(int) * 5)))
 		return (NULL);
-	if (!(data = (int *)malloc(sizeof(int) * 4)))
+	if (!(data = (int *)malloc(sizeof(int) * 5)))
 		return (NULL);
-	iter[0] = crds[0];
-	iter[1] = crds[1];
-	iter[2] = ((crds[0] < crds[2]) ? 1 : -1);
-	iter[3] = ((crds[1] < crds[3]) ? 1 : -1);
-	iter[4] = 0;
 	data[0] = crds[2] - crds[0];
 	data[1] = crds[3] - crds[1];
 	data[2] = abs(crds[2] - crds[0]);
 	data[3] = abs(crds[3] - crds[1]);
-	if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
-		bresenham_dx(map, crds, iter, data);
-	else
-		bresenham_dy(map, crds, iter, data);
+	data[4] = ((abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1])) ? 1 : 0);
+	iter[0] = crds[0];
+	iter[1] = crds[1];
+	iter[2] = diff_direction(data[1]);
+	iter[3] = diff_direction(data[0]);
+	iter[4] = 0;
+	// if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
+	// 	bresenham_dx(map, crds, iter, data);
+	// else
+	// 	bresenham_dy(map, crds, iter, data);
+	bresenham_dx_dy(map, crds, iter, data);
 	// br_common_algo(map, crds, iter, data);
 	free(crds);
 	free(iter);
@@ -200,16 +202,10 @@ void	br_common_algo(t_frame *map, int *crds, int *iter, int *data)
 void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 {
 	int col;
-	int sign_x;
 
-	sign_x = diff_direction(data[0]);
-
-	iter[2] = diff_direction(data[1]);
-	// while ((data[0] > 0) ? iter[0] <= crds[2] : iter[0] >= crds[2])
 	while (iter[0] != crds[2])
 	{
 		col = get_color(crds, iter, data);
-		// mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
 		put_pix_on_pic(map, iter[0], iter[1], col);
 		iter[4] += data[3];
 		if (iter[4] > data[2])
@@ -217,23 +213,17 @@ void	bresenham_dx(t_frame *map, int *crds, int *iter, int *data)
 			iter[4] -= data[2];
 			iter[1] += iter[2];
 		}
-		iter[0] += sign_x;
+		iter[0] += iter[3];
 	}
 }
 
 void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 {
 	int col;
-	int	sign_y;
 
-	sign_y = diff_direction(data[1]);
-
-	iter[3] = diff_direction(data[0]);
-	// while ((data[1] > 0) ? iter[1] <= crds[3] : iter[1] >= crds[3])
 	while (iter[1] != crds[3])
 	{
 		col = get_color(crds, iter, data);
-		// mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
 		put_pix_on_pic(map, iter[0], iter[1], col);
 		iter[4] += data[2];
 		if (iter[4] > data[3])
@@ -241,7 +231,30 @@ void	bresenham_dy(t_frame *map, int *crds, int *iter, int *data)
 			iter[4] -= data[3];
 			iter[0] += iter[3];
 		}
-		// iter[1] = (data[1] > 0) ? iter[1] + 1 : iter[1] - 1;
-		iter[1] += sign_y;
+		iter[1] += iter[2];
+	}
+}
+
+void	bresenham_dx_dy(t_frame *map, int *crds, int *iter, int *data)
+{
+	int col;
+
+	while (((data[4]) ? (iter[0] != crds[2]) : (iter[1] != crds[3])))
+	{
+		col = get_color(crds, iter, data);
+		put_pix_on_pic(map, iter[0], iter[1], col);
+		iter[4] = iter[4] + ((data[4]) ? data[3] : data[2]);
+		if (((data[4]) ? iter[4] > data[2] : iter[4] > data[3]))
+		{
+			iter[4] = iter[4] - ((data[4]) ? data[2] : data[3]);
+			if (data[4])
+				iter[1] += iter[2];
+			else
+				iter[0] += iter[3];
+		}
+		if (data[4])
+			iter[0] += iter[3];
+		else
+			iter[1] += iter[2];
 	}
 }
