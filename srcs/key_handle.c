@@ -6,7 +6,7 @@
 /*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 17:26:30 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/08/06 18:06:59 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ void	commit_changes_to_map_body(t_frame *map, int flag, int i, int j)
 	{
 		map->pixs[i][j].x_p = map->pixs[i][j].x_p * map->scale + map->sh_x;
 		map->pixs[i][j].y_p = map->pixs[i][j].y_p * map->scale + map->sh_y;
+	}
+	if (flag != 0)
+	{
+		map->min_y = H;
+		if (map->pixs[i][j].y < map->min_y)
+			map->min_y = map->pixs[i][j].y;
 	}
 }
 

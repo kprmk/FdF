@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:58:11 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 15:35:27 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 18:08:50 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void	*parse_list(t_frame *map, t_list *head)
 		temp = temp->prev;
 	}
 	commit_changes_to_map(map, 1);
+	ft_printf("zmax %d ymin %d\n", map->max_z, map->min_y);
 	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: mbrogg <mbrogg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 17:28:14 by mbrogg           ###   ########.fr       */
+/*   Updated: 2020/08/06 17:46:00 by mbrogg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_frame
 	int			angle_iso;
 	float		sum_scale;
 	int			max_z;
+	int			min_y;
 }				t_frame;
 
 t_frame			*init_frame(t_frame *map);
