@@ -6,29 +6,58 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 17:11:14 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 00:34:07 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 16:16:29 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	input_shift_and_scale(int key, t_frame *map)
+void	input_shift(int key, t_frame *map)
 {
 	int shift;
 
 	shift = 30;
-	if (key == 65363)
-		map->sh_x = shift;
-	if (key == 65362)
-		map->sh_y = -shift;
-	if (key == 65364)
-		map->sh_y = shift;
-	if (key == 65361)
-		map->sh_x = -shift;
-	if (key == 61 && map->sum_scale < 1)
-		map->scale = 1.4;
-	if (key == 45 && map->sum_scale > -1)
-		map->scale = 0.6;
+	if (map->type_proj == 0)
+	{
+		if (key == 65363 && map->pixs[0][map->wh - 1].x < W)
+			map->sh_x = shift;
+		if (key == 65362 && map->pixs[0][0].y > 0)
+			map->sh_y = -shift;
+		if (key == 65364 && map->pixs[map->ht - 1][map->wh - 1].y < H)
+			map->sh_y = shift;
+		if (key == 65361 && map->pixs[map->ht - 1][0].x > 0)
+			map->sh_x = -shift;
+	}
+	else
+	{
+		if (key == 65363 && map->pixs[0][map->wh - 1].x_p < W)
+			map->sh_x = shift;
+		if (key == 65362 && map->pixs[0][0].y_p > 0)
+			map->sh_y = -shift;
+		if (key == 65364 && map->pixs[map->ht - 1][map->wh - 1].y_p < H)
+			map->sh_y = shift;
+		if (key == 65361 && map->pixs[map->ht - 1][0].x_p > 0)
+			map->sh_x = -shift;
+	}
+}
+
+void	input_shift_and_scale(int key, t_frame *map)
+{
+	input_shift(key, map);
+	if (map->type_proj == 0)
+	{		
+		if (key == 61 && (abs(map->pixs[0][0].x - map->pixs[0][1].x) < 50))
+			map->scale = 1.4;
+		if (key == 45 && (abs(map->pixs[0][0].x - map->pixs[0][1].x) > 10))
+			map->scale = 0.6;
+	}
+	else
+	{
+		if (key == 61 && (abs(map->pixs[0][0].x_p - map->pixs[0][1].x_p) < 50))
+			map->scale = 1.4;
+		if (key == 45 && (abs(map->pixs[0][0].x_p - map->pixs[0][1].x_p) > 10))
+			map->scale = 0.6;
+	}
 	if (key == 112)
 		map->type_proj = ((map->type_proj == 1) ? 0 : 1);
 	if (key == 97)
@@ -46,6 +75,9 @@ void	commit_changes_to_map_body(t_frame *map, int flag, int i, int j)
 	}
 	if (map->type_proj != 0 || flag != 0)
 	{
+		// if (flag == 0)
+			// ft_printf("COMMIT PAR\n");
+
 		map->pixs[i][j].x_p = map->pixs[i][j].x_p * map->scale + map->sh_x;
 		map->pixs[i][j].y_p = map->pixs[i][j].y_p * map->scale + map->sh_y;
 	}
@@ -95,38 +127,20 @@ void	commit_changes_to_map(t_frame *map, int flag)
 		map->scale = 1;
 }
 
-/*
-**	CHANGES -> SH_X, SH_Y, SCALE
-*/
-
 int		deal_key(int key, t_frame *map)
 {
-	// int	bp;
-	// int	sl;
-	// int	en;
-	int	i;
-
-	i = -1;
 	map->sh_x = 0;
 	map->sh_y = 0;
 	map->sum_scale += (map->scale - 1);
 	map->scale = 1;
 	if (key == 65307)
 	{
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		free(map);
+		free_map(&map);
 		exit(0);
 	}
 	input_shift_and_scale(key, map);
 	commit_changes_to_map(map, 0);
-	mlx_clear_window(map->data->mlx, map->data->win);
-	while (++i < 3 + 1000 * 4 * 1000)
-		map->data->im_data[i] = 0;
-	// mlx_destroy_image(map->data->mlx, map->data->im);
-	// if (!(map->data->im = mlx_new_image(map->data->mlx, 1000, 1000)))
-		// return (-1);
-	// if (!(map->data->im_data = mlx_get_data_addr(map->data->im, &bp, &sl, &en)))
-		// return (-1);
+	ft_bzero(map->data->im_data, 3 + W * 4 * W);
 	draw_map(map);
 	return (0);
 }

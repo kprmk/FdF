@@ -6,15 +6,11 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:40 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 14:08:28 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 15:35:38 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-#include <math.h>
-#define W 1000
-#define H 1000
 
 void	print_frame(t_frame *map)
 {
@@ -27,12 +23,7 @@ void	print_frame(t_frame *map)
 	{
 		j = -1;
 		while (++j < map->wh)
-		{
-			// if (map->pixs[i][j].col == 0xffffff)
-				// ft_printf("%2d ", map->pixs[i][j].z);
-			// else
 			ft_printf("%d %X, ", (int)map->pixs[i][j].z, map->pixs[i][j].col);
-		}
 		ft_printf("\n");
 	}
 }
@@ -64,10 +55,9 @@ int		main(int argc, char **argv)
 		return (0);
 	if (!(init_data_mlx(map, W, H)))
 		return (0);
-	print_frame(map);
 	draw_map(map);
 	mlx_key_hook(map->data->win, deal_key, map);
 	mlx_loop(map->data->mlx);
-	// free_map(&map);
+	free_map(&map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:41 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 14:24:01 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 15:49:47 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "libft.h"
 # include <mlx.h>
 # include <math.h>
+
+# define W 1000
+# define H 1000
 
 typedef	struct	s_pix
 {

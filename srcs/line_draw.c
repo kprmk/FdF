@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 21:29:35 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 14:31:20 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 15:11:49 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,7 @@ void	*bresenham(t_frame *map, int *crds)
 	iter[2] = diff_direction(data[1]);
 	iter[3] = diff_direction(data[0]);
 	iter[4] = 0;
-	// if (abs(crds[2] - crds[0]) >= abs(crds[3] - crds[1]))
-	// 	bresenham_dx(map, crds, iter, data);
-	// else
-	// 	bresenham_dy(map, crds, iter, data);
 	bresenham_dx_dy(map, crds, iter, data);
-	// br_common_algo(map, crds, iter, data);
 	free(crds);
 	free(iter);
 	free(data);
@@ -117,76 +112,6 @@ void	put_pix_on_pic(t_frame *map, int x, int y, int col)
 		map->data->im_data[index] = col;
 		map->data->im_data[index + 1] = col >> 8;
 		map->data->im_data[index + 2] = col >> 16;
-	}
-}
-
-/*
-**	CRDS
-**	x0, y0, x1, y1, col0, col1
-**	ITER
-**	x, y, dir, accretion, z
-**	DATA
-**	dx, dy, dxabs, dyabs, col
-*/
-
-void	br_common_algo(t_frame *map, int *crds, int *iter, int *data)
-{
-	// int		sign_x;
-	// int		sign_y;
-	// int		error[2];
-
-	// // temp.x_p = ft_abs(crds[2] - crds[0]);
-	// // temp.y_p = ft_abs(crds[3] - crds[1]);
-	// sign_x = ((data[0] > 0) ? 1 : -1);
-	// sign_y = ((data[1] > 0) ? 1 : -1);
-	// error[0] = data[0] - data[1];
-	// // temp.x = crds[0];
-	// // temp.y = crds[1];
-	// while (iter[0] != crds[2] || iter[1] != crds[3])
-	// {
-	// 	// put_pixel(map, iter[0], iter[1], get_color(crds, iter, data));
-	// 	int col = get_color(crds, iter, data);
-	// 	mlx_pixel_put(map->data->mlx, map->data->win, iter[0], iter[1], col);
-	// 	if ((error[1] = error[0] * 2) > -data[3])
-	// 	{
-	// 		error[0] -= data[3];
-	// 		iter[0] += sign_x;
-	// 	}
-	// 	if (error[1] < data[2])
-	// 	{
-	// 		error[0] += data[2];
-	// 		iter[1] += sign_y;
-	// 	}
-	// }
-
-	t_pix	delta;
-	t_pix	sign;
-	t_pix	cur;
-	int		error[2];
-
-	delta.x = abs(crds[2] - crds[0]);
-	delta.y = abs(crds[3] - crds[1]);
-	sign.x = crds[0] < crds[2] ? 1 : -1;
-	sign.y = crds[1] < crds[3] ? 1 : -1;
-	error[0] = delta.x - delta.y;
-	cur.x = crds[0];
-	cur.y = crds[1];
-	while (cur.x != crds[2] || cur.y != crds[3])
-	{
-		int col = get_color(crds, iter, data);
-		// put_pixel(f, cur.x, cur.y, get_color(cur, f, s, delta));
-		mlx_pixel_put(map->data->mlx, map->data->win, cur.x, cur.y, col);
-
-		if ((error[1] = error[0] * 2) > -delta.y)
-		{
-			error[0] -= delta.y;
-			cur.x += sign.x;
-		}
-		if (error[1] < delta.x)
-		{
-			error[0] += delta.x;
-			cur.y += sign.y;
-		}
 	}
 }
 

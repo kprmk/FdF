@@ -6,7 +6,7 @@
 /*   By: kprmk <kprmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:50:25 by kprmk             #+#    #+#             */
-/*   Updated: 2020/08/06 00:16:00 by kprmk            ###   ########.fr       */
+/*   Updated: 2020/08/06 15:30:32 by kprmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,13 @@ void	free_map(t_frame **map)
 	int	i;
 
 	i = -1;
-	while (++i)
+	while (++i < (*map)->ht)
 		free((*map)->pixs[i]);
 	free((*map)->pixs);
+	free((*map)->data->mlx);
+	free((*map)->data->win);
+	free((*map)->data->im);
+	free((*map)->data);
 	free(*map);
 	*map = NULL;
 }
